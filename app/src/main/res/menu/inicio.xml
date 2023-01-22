@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/pajaros_registrados"
+        android:title="Pajaros Registrados"
+        android:icon="@drawable/volver_home"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/anadir_nuevo"
+        android:title="Añadir nuevo"
+        android:icon="@drawable/anadir_nuevo"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/consultar_criadores"
+        android:icon="@drawable/ver_criador"
+        android:title="Consultar Criadores"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/modificar_ave"
+        android:title="Modificar Ave"
+        android:icon="@drawable/modificar_ave"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/cerrar_sesion"
+        android:title="Cerrar Sesión"
+        android:icon="@drawable/cerrar_seccion"
+        app:showAsAction="ifRoom"/>
+</menu>
