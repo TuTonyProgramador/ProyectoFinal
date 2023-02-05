@@ -33,6 +33,9 @@ class CriadorFragment : Fragment(R.layout.fragment_criador) {
                 putExtra("NumCriador", binding.NumCriador.text.toString())
             }
             startActivity(intent)
+
+            // Llamada al metodo para limpiar el foco
+            clearFocus()
         }
         return view
     }
@@ -41,5 +44,10 @@ class CriadorFragment : Fragment(R.layout.fragment_criador) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    //Al pulsar sobre el boton consultar, se limpia
+    fun clearFocus() {
+        binding.NumCriador.setText("")
     }
 }

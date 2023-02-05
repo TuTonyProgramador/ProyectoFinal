@@ -2,25 +2,29 @@ package com.example.proyectofinal.Login
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.ContextMenu
+import android.view.MenuItem
+import android.view.View
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
 import com.example.proyectofinal.PajarosActivity
-import com.example.proyectofinal.SplashActivity
+import com.example.proyectofinal.R
 import com.example.proyectofinal.databinding.ActivityMainBinding
-import com.example.proyectofinal.menu.HomeFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity() {
-
     lateinit var binding: ActivityMainBinding
-    val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Menu contectual ---------
+        val imagen = binding.ImagenInicio
+        registerForContextMenu(imagen)
 
         binding.BIniciarSesion.setOnClickListener {
             login()
@@ -34,11 +38,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, RecordarConta::class.java))
         }
 
-        /*db.collection("Usuarios")
-            .whereEqualTo("Correo", binding.IntroEmail.text.toString())
-            .get().addOnSuccessListener(){
-                Glide.with(MainActivity.this).load("Imagen").into(binding.ImagenInicio)
-            }*/
     }
 
     private fun login(){
@@ -73,5 +72,34 @@ class MainActivity : AppCompatActivity() {
     fun clearFocus() {
         binding.IntroEmail.setText("")
         binding.IntroContrasena.setText("")
+    }
+
+    // Menu contectual ---------
+    override fun onCreateContextMenu(
+        menu: ContextMenu?,
+        v: View?,
+        menuInfo: ContextMenu.ContextMenuInfo?
+    ) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        menuInflater.inflate(R.menu.menu_contextual, menu)
+        menu?.setHeaderTitle("Menu contextual")
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.descargar_imagen -> {
+                Toast.makeText(this, "Opcion descargar", Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.ir_web -> {
+                Toast.makeText(this, "Opcion web", Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.eliminar_imagen -> {
+                Toast.makeText(this, "Opcion eliminar", Toast.LENGTH_SHORT).show()
+                true
+            }
+            else -> super.onContextItemSelected(item)
+        }
     }
 }

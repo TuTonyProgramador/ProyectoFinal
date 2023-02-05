@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/descargar_imagen"
+        android:title="Descargar Imagen" />
+    <item
+        android:id="@+id/ir_web"
+        android:title="Ir a pagina web" />
+    <item
+        android:id="@+id/eliminar_imagen"
+        android:title="Eliminar Imagen" />
+</menu>

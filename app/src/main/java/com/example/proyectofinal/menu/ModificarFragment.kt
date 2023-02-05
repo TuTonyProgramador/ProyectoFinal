@@ -1,9 +1,7 @@
 package com.example.proyectofinal.menu
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.proyectofinal.R
@@ -11,7 +9,7 @@ import com.example.proyectofinal.databinding.FragmentModificarBinding
 import com.google.firebase.firestore.FirebaseFirestore
 
 class ModificarFragment : Fragment(R.layout.fragment_modificar) {
-    /*private var _binding: FragmentModificarBinding? = null
+    private var _binding: FragmentModificarBinding? = null
     private val binding get() = _binding!!
     val db = FirebaseFirestore.getInstance()
 
@@ -26,16 +24,17 @@ class ModificarFragment : Fragment(R.layout.fragment_modificar) {
 
     binding.BModificar.setOnClickListener {
     if(!(binding.MAnioN.text.isNullOrEmpty() && binding.MNumAni.text.isNullOrEmpty() && binding.MNumC.text.isNullOrEmpty() && binding.MSexo.text.isNullOrEmpty() && binding.MTipoAve.text.isNullOrEmpty())) {
-      db.collection("Canarios")
-          .whereEqualTo("Num_anilla", binding.MNumAni.text.toString())
-          .whereEqualTo("Numero_criador", binding.MNumC.text.toString())
-          .whereEqualTo("Anio_nac", binding.MAnioN.text.toString())
+      /*db.collection("Canarios")
+          .whereEqualTo(binding.MNumC.text.toString())
           .get().addOnSuccessListener() {
               it.forEach {
+                  binding.MNumC.setText(it.get("Numero_criador") as String?)
+                  binding.MNumAni.setText(it.get("Num_anilla") as String?)
+                  binding.MAnioN.setText(it.get("Anio_nac") as String?)
                   binding.MSexo.setText(it.get("Sexo") as String?)
                   binding.MTipoAve.setText(it.get("Tipo") as String?)
               }
-          }
+          }*/
 
       // Volver a la actividad del homeFragment
       /*val homeFragment = Intent(activity, PajarosActivity::class.java)
@@ -54,5 +53,5 @@ class ModificarFragment : Fragment(R.layout.fragment_modificar) {
     override fun onDestroyView() {
     super.onDestroyView()
     _binding = null
-    }*/
+    }
 }

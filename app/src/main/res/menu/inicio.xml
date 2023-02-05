@@ -9,18 +9,18 @@
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/anadir_nuevo"
-        android:title="Añadir nuevo"
         android:icon="@drawable/anadir_nuevo"
-        app:showAsAction="ifRoom"/>
+        android:title=" Añadir Nuevo Pájaro"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/consultar_criadores"
         android:icon="@drawable/ver_criador"
-        android:title="Consultar Criadores"
+        android:title="Consultar Datos de Criador"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/modificar_ave"
-        android:title="Modificar Ave"
         android:icon="@drawable/modificar_ave"
+        android:title="Modificar Pájaro"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/cerrar_sesion"

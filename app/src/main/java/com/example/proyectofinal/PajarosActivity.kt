@@ -2,27 +2,20 @@ package com.example.proyectofinal
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
-import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.proyectofinal.Login.MainActivity
-import com.example.proyectofinal.adapter.CuadroDialogo
-import com.example.proyectofinal.adapter.DatosAve
-import com.example.proyectofinal.adapter.ProyectoAdapter
 import com.example.proyectofinal.databinding.ActivityPajarosBinding
 import com.example.proyectofinal.menu.*
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+
 
 class PajarosActivity : AppCompatActivity() {
-
     private lateinit var toogle: ActionBarDrawerToggle
     lateinit var binding: ActivityPajarosBinding
 
@@ -41,6 +34,7 @@ class PajarosActivity : AppCompatActivity() {
         val email = nav.findViewById<TextView>(R.id.CorreoUsu)
         email.text = intent.getStringExtra("emailUsuario")
 
+        // Distintas opciones del menu
         binding.navView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.pajaros_registrados -> {
@@ -88,4 +82,5 @@ class PajarosActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
 }

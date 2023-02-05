@@ -2,9 +2,8 @@ package com.example.proyectofinal.Login
 
 import android.content.Intent
 import android.graphics.Bitmap
-import android.net.Uri
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.widget.ImageButton
 import android.widget.Toast
@@ -14,49 +13,34 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.proyectofinal.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
+import java.io.ByteArrayOutputStream
 
 class LoginActivity : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
-    lateinit var imagen: ImageButton
     val db = FirebaseFirestore.getInstance()
-
-
-    val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()){
-        // Devuelve la uri de la imagen seleccionada
-            uri ->
-        if(uri!=null) {
-            // Seleccionamos la imagen
-            imagen.setImageURI(uri)
-
-            Log.d("Galeria", "La imagen se ha seleccionado correctamente")
-
-        } else{
-            Log.d("Galeria", "No se ha seleccionado ninguna imagen")
-        }
-    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        // imageButton
-        imagen = binding.imagenB
 
+        // Pulsar boton de registrarse
         binding.BRegistrarse.setOnClickListener {
+            // LLamada al metodo de registrarse
             Registro()
-        }
 
-        // Cuando pulsemos sobre el imageButton, se va a llamar al launcher (pickMedia) para que se lanze
-        imagen.setOnClickListener {
-            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
 
     }
 
-    private fun Registro(){
+    // Metodo para el registro de un nuevo usuario
+    private fun Registro() {
         // Si el correo y el password no son campos vacios:
-        if(binding.INombre.text.isNotEmpty() && binding.IApellidos.text.isNotEmpty() && binding.IEmail.text.isNotEmpty() && binding.IContrasena.text.isNotEmpty()) {
+        if(binding.INombre.text.isNotEmpty() && binding.IApellidos.text.isNotEmpty() && binding.IEmail.text.isNotEmpty() && binding.IContrasena.text.isNotEmpty() && validarEmail()) {
             // Iniciamos sesión con el método signIn y enviamos a Firebase el correo y la contraseña
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(
                 binding.IEmail.text.toString(),
@@ -67,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
                     if (it.isSuccessful){
                         // Añadimos los datos del usuario en Firebase
                         db.collection("Usuarios").document(binding.IEmail.text.toString())
-                            .set(mapOf("Nombre" to binding.INombre.text.toString(), "Apellidos" to binding.IApellidos.text.toString(), "Imagen" to binding.imagenB.toString()))
+                            .set(mapOf("Nombre" to binding.INombre.text.toString(), "Apellidos" to binding.IApellidos.text.toString()))
 
                         // Accedemos a la pantalla InicioActivity, para dar la bienvenida al usuario
                         val intent = Intent(this, MainActivity::class.java)
@@ -79,8 +63,13 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
         } else {
-
-            Toast.makeText(this, "Algun campo está vacio", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Puede ser que algun campo este vacio o sea incorrecto", Toast.LENGTH_SHORT).show()
         }
     }
+
+    // Funcion para validar email que sea correcto
+    fun validarEmail(): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(binding.IEmail.text.toString()).matches()
+    }
+
 }

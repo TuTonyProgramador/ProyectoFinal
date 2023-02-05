@@ -7,17 +7,6 @@
     android:background="@drawable/background"
     tools:context=".Login.LoginActivity">
 
-    <ImageButton
-        android:id="@+id/imagenB"
-        android:layout_width="217dp"
-        android:layout_height="215dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.479"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/user_icon" />
-
     <EditText
         android:id="@+id/IEmail"
         android:layout_width="wrap_content"
@@ -60,7 +49,7 @@
         android:id="@+id/INombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:background="#30ffffff"
         android:ems="10"
         android:hint="Nombre"
@@ -98,5 +87,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/IContrasena" />
+
+    <ImageView
+        android:id="@+id/imagenB"
+        android:layout_width="201dp"
+        android:layout_height="221dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/user_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

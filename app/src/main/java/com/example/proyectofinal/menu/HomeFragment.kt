@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyectofinal.R
-import com.example.proyectofinal.adapter.CuadroDialogo
 import com.example.proyectofinal.adapter.DatosAve
 import com.example.proyectofinal.adapter.ProyectoAdapter
 import com.google.firebase.firestore.FirebaseFirestore
@@ -21,8 +20,7 @@ class HomeFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private var recycler: RecyclerView? = null
-    private var listaAves = mutableListOf<DatosAve>()
-    val db = FirebaseFirestore.getInstance()
+    private var listaAves = ArrayList<DatosAve>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +45,7 @@ class HomeFragment : Fragment() {
 
         cargarDatos()
         recycler?.adapter = ProyectoAdapter(listaAves)
+
 
         return vista
     }

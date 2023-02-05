@@ -7,28 +7,18 @@
     android:background="@drawable/background"
     tools:context=".menu.HomeFragment">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="180dp"
-        android:layout_height="175dp"
-        android:layout_marginTop="4dp"
-        android:src="@drawable/registrar_ave"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/TextEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Registrar nueva Ave"
         android:textColor="@color/white"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageB" />
 
     <EditText
         android:id="@+id/tipoAve"
@@ -44,7 +34,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/TextEmail"
+        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
 
     <EditText
         android:id="@+id/numeroC"
@@ -60,7 +51,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tipoAve" />
+        app:layout_constraintTop_toBottomOf="@+id/tipoAve"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <EditText
         android:id="@+id/anioNacimiento"
@@ -70,13 +62,14 @@
         android:background="#30ffffff"
         android:ems="10"
         android:hint="Año de nacimiento"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:padding="10dp"
         android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numeroC" />
+        app:layout_constraintTop_toBottomOf="@+id/numeroC"
+        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
 
     <EditText
         android:id="@+id/sexoA"
@@ -92,7 +85,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/anioNacimiento" />
+        app:layout_constraintTop_toBottomOf="@+id/anioNacimiento"
+        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
 
     <EditText
         android:id="@+id/numA"
@@ -102,24 +96,36 @@
         android:background="#30ffffff"
         android:ems="10"
         android:hint="Numero de Anilla"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:padding="10dp"
         android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sexoA" />
+        app:layout_constraintTop_toBottomOf="@+id/sexoA"
+        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
 
     <Button
         android:id="@+id/BRegistrarAve"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="76dp"
         android:backgroundTint="@color/black"
         android:text="Registrar Ave"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/numA" />
+
+    <ImageButton
+        android:id="@+id/imageB"
+        android:layout_width="204dp"
+        android:layout_height="191dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
