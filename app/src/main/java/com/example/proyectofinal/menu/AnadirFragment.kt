@@ -14,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.example.proyectofinal.PajarosActivity
 import com.example.proyectofinal.R
+import com.example.proyectofinal.adapter.DatosAve
 import com.example.proyectofinal.databinding.FragmentAnadirBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
@@ -27,6 +28,7 @@ class AnadirFragment : Fragment(R.layout.fragment_anadir) {
     val db = FirebaseFirestore.getInstance()
     lateinit var storage: FirebaseStorage
     lateinit var imagen: ImageButton
+    lateinit var datos: DatosAve
 
     val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()){
         // Devuelve la uri de la imagen seleccionada
@@ -110,21 +112,30 @@ class AnadirFragment : Fragment(R.layout.fragment_anadir) {
         val storageRef = storage.reference
 
         // Referenciamos a donde queremos subir la imagen
-        // System.currentTimeMillis() para que no se repita el nombre de la imagen, siempre va a salir distinto
         val rutaImagen = storageRef.child("profile/" + binding.numeroC.hashCode() + "/canario.PNG")
 
         // Cogemos la imagen y la transformamos en bitmap(imagen en bits)
         val bitmap = (imagen.drawable as BitmapDrawable).bitmap
+
         // Canal de comunicacion para mandar unos datos
         val baos = ByteArrayOutputStream()
+
         // Comprime la imagen
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
+
         // Tranformacion en array de byte
         val data = baos.toByteArray()
 
         // Poner los byte de la imagen en la ruta
         var uploadTask = rutaImagen.putBytes(data)
+        /*uploadTask.addOnFailureListener {
 
+        }.addOnSuccessListener { taskSnapshot ->
+            rutaImagen.downloadUrl.addOnSuccessListener {
+                datos.Imagen = it.toString()
+            }
+        }*/
     }
+
 
 }

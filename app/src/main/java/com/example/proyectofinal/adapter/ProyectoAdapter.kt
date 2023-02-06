@@ -1,12 +1,17 @@
 package com.example.proyectofinal.adapter
 
 import android.app.AlertDialog
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyectofinal.R
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import com.example.proyectofinal.databinding.ListaPajarosBinding
 
 
 class ProyectoAdapter(private var consultarDatosAves:ArrayList<DatosAve>): RecyclerView.Adapter<ProyectoViewHolder>() {
@@ -19,7 +24,12 @@ class ProyectoAdapter(private var consultarDatosAves:ArrayList<DatosAve>): Recyc
 
     override fun onBindViewHolder(holder: ProyectoViewHolder, position: Int) {
         var size = consultarDatosAves.size
+
         val db = FirebaseFirestore.getInstance()
+        // Obtener el usuario autentificado
+        //var autentication = FirebaseAuth.getInstance()
+        //var storage = FirebaseStorage.getInstance()
+        //lateinit var binding: ListaPajarosBinding
         val item:DatosAve = consultarDatosAves[position]
         holder.render(item)
 
@@ -59,7 +69,18 @@ class ProyectoAdapter(private var consultarDatosAves:ArrayList<DatosAve>): Recyc
 
         }
 
+        // Descargar imagen
+        /*autentication.currentUser?.let {
+            val refguardado = storage.getReference("profile/")
 
+            val refimagen = refguardado.child("profile/" + binding.NumeroCriador.hashCode() + "/canario.PNG")
+
+            refimagen.getBytes(1024 * 1024).addOnSuccessListener {
+                val foto = BitmapFactory.decodeByteArray(it, 0, it.size)
+
+                binding.imagenLista.setImageBipmap(foto)
+            }
+        }*/
     }
 
     override fun getItemCount(): Int = consultarDatosAves.size

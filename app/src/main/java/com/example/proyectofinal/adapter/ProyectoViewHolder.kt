@@ -2,13 +2,12 @@ package com.example.proyectofinal.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.proyectofinal.databinding.ListaPajarosBinding
-import com.google.firebase.firestore.FirebaseFirestore
 
 
 class ProyectoViewHolder(view: View): RecyclerView.ViewHolder(view) {
     private val binding = ListaPajarosBinding.bind(view)
-    val db = FirebaseFirestore.getInstance()
 
     fun render(ProyectoModel: DatosAve) {
         // Mostrar el tipo de canario
@@ -21,6 +20,9 @@ class ProyectoViewHolder(view: View): RecyclerView.ViewHolder(view) {
         binding.Sexo.text = ProyectoModel.Sexo
         // Mostrar numero de anilla del canario
         binding.NumeroAnilla.text = ProyectoModel.Num_anilla
+
+        // Mostrar imagen del canario
+        Glide.with(binding.imagenLista.context).load(ProyectoModel.Imagen).into(binding.imagenLista)
 
     }
 

@@ -3,22 +3,19 @@ package com.example.proyectofinal
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.proyectofinal.Login.MainActivity
 
 class SplashActivity : AppCompatActivity() {
 
-    val contador:Long = 1000
-
     override fun onCreate(savedInstanceState: Bundle?) {
+        val screenSplash = installSplashScreen()
         super.onCreate(savedInstanceState)
-
-        // Para que no cargue doble el splash lo cargo del tiron
-        Thread(Runnable {
-            Thread.sleep(contador)
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }).start()
+        screenSplash.setKeepOnScreenCondition{true}
+        Thread.sleep(4000)
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
 
 
     }

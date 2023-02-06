@@ -24,8 +24,8 @@ class ModificarFragment : Fragment(R.layout.fragment_modificar) {
 
     binding.BModificar.setOnClickListener {
     if(!(binding.MAnioN.text.isNullOrEmpty() && binding.MNumAni.text.isNullOrEmpty() && binding.MNumC.text.isNullOrEmpty() && binding.MSexo.text.isNullOrEmpty() && binding.MTipoAve.text.isNullOrEmpty())) {
-      /*db.collection("Canarios")
-          .whereEqualTo(binding.MNumC.text.toString())
+      db.collection("Canarios")
+          /*.whereEqualTo(binding.MNumC.hashCode().toString())
           .get().addOnSuccessListener() {
               it.forEach {
                   binding.MNumC.setText(it.get("Numero_criador") as String?)

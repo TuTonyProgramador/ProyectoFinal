@@ -43,7 +43,9 @@ class HomeFragment : Fragment() {
         recycler = vista.findViewById(R.id.Recycler)
         recycler?.layoutManager = LinearLayoutManager(context)
 
+        // Llamada al metodo para cargar los datos de los canarios
         cargarDatos()
+
         recycler?.adapter = ProyectoAdapter(listaAves)
 
 
