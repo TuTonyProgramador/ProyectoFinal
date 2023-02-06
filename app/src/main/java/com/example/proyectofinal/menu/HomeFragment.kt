@@ -52,6 +52,7 @@ class HomeFragment : Fragment() {
         return vista
     }
 
+    // Cargar datos de los canarios
     fun cargarDatos() {
         val db = FirebaseFirestore.getInstance()
 

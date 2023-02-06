@@ -78,6 +78,7 @@ class AnadirFragment : Fragment(R.layout.fragment_anadir) {
         _binding = null
     }
 
+    // Metodo para registrar el nuevo pajaro
     fun RegistrarAve() {
         if(!(binding.tipoAve.text.isNullOrEmpty() && binding.numeroC.text.isNullOrEmpty() && binding.anioNacimiento.text.isNullOrEmpty() && binding.sexoA.text.isNullOrEmpty() && binding.numA.text.isNullOrEmpty())){
             db.collection("Canarios")
@@ -107,6 +108,7 @@ class AnadirFragment : Fragment(R.layout.fragment_anadir) {
 
     }
 
+    // Metodo para subir una foto
     private fun subirImagen() {
         // Creamos la referencia al storage
         val storageRef = storage.reference

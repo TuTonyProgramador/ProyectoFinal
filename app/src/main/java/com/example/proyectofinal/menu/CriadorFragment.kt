@@ -26,6 +26,7 @@ class CriadorFragment : Fragment(R.layout.fragment_criador) {
         _binding = FragmentCriadorBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        // Boton para consultar el criador
         binding.BConsultarCriador.setOnClickListener {
             db.collection("Criadores").document(binding.NumCriador.text.toString())
 

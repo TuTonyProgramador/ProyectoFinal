@@ -15,6 +15,7 @@ class DatosCriadorActivity : AppCompatActivity() {
         binding = ActivityDatosCriadorBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Recoger dato del numero de criador
         var numeroCriador = intent.getStringExtra("NumCriador")
 
         db.collection("Criadores")

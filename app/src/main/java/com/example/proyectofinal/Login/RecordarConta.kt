@@ -16,11 +16,14 @@ class RecordarConta : AppCompatActivity() {
         binding = ActivityRecordarContaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Boton de recordar la contraseña
         binding.BRecordar.setOnClickListener {
+            // Llamada al metodo de recuperar la contraseña
             recuperarContra()
         }
     }
 
+    // Metodo para recuperar la contraseña
     private fun recuperarContra() {
         if(binding.IntEmail.text.isNotEmpty()) {
             // Iniciamos sesión con el método signIn y enviamos a Firebase el correo y la contraseña

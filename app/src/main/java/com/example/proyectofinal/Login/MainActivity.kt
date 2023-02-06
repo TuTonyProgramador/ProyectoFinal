@@ -26,14 +26,17 @@ class MainActivity : AppCompatActivity() {
         val imagen = binding.ImagenInicio
         registerForContextMenu(imagen)
 
+        // Boton para iniciar seccion
         binding.BIniciarSesion.setOnClickListener {
             login()
         }
 
+        // Boton para que nos lleve a la ventana del registro
         binding.BLlevarRegistro.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
         }
 
+        // Boton para que nos lleve a la ventana del olvido de contraseña
         binding.RecordarContrasena.setOnClickListener {
             startActivity(Intent(this, RecordarConta::class.java))
         }
