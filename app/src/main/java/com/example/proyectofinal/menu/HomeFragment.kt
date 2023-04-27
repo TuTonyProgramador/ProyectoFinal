@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.proyectofinal.R
 import com.example.proyectofinal.adapter.DatosAve
 import com.example.proyectofinal.adapter.ProyectoAdapter
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 private const val ARG_PARAM1 = "param1"
@@ -22,7 +23,7 @@ class HomeFragment : Fragment() {
     private var recycler: RecyclerView? = null
     private var listaAves = ArrayList<DatosAve>()
 
-
+    //email = arguments?.getString("Email")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -33,7 +34,8 @@ class HomeFragment : Fragment() {
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Te carga el recycler
         var vista: View = inflater.inflate(R.layout.fragment_home, container, false)
@@ -55,23 +57,24 @@ class HomeFragment : Fragment() {
     // Cargar datos de los canarios
     fun cargarDatos() {
         val db = FirebaseFirestore.getInstance()
+        val currentUserEmail = FirebaseAuth.getInstance().currentUser?.email
 
+        // Filtrar documentos por el campo "usuario" que tenga el valor del email del usuario actual
         db.collection("Canarios")
+            .whereEqualTo("Usuario", currentUserEmail)
             .get()
             .addOnSuccessListener { cargar ->
-            for (canarios in cargar) {
-
-                var canario = canarios.toObject(DatosAve::class.java)
-
-                listaAves.add(canario)
+                for (canarios in cargar) {
+                    var canario = canarios.toObject(DatosAve::class.java)
+                    listaAves.add(canario)
+                }
+                var adapter = ProyectoAdapter(listaAves)
+                recycler?.adapter = adapter
             }
-
-            var adapter = ProyectoAdapter(listaAves)
-            recycler?.adapter = adapter
-        }
-            .addOnFailureListener{
+            .addOnFailureListener {
                 Log.d("Cargar", "Error en la obtención del canario")
             }
     }
+
 
 }

@@ -1,8 +1,8 @@
 package com.example.proyectofinal.adapter
 
 import android.app.AlertDialog
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -11,7 +11,7 @@ import com.example.proyectofinal.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
-import com.example.proyectofinal.databinding.ListaPajarosBinding
+
 
 
 class ProyectoAdapter(private var consultarDatosAves:ArrayList<DatosAve>): RecyclerView.Adapter<ProyectoViewHolder>() {
@@ -27,9 +27,7 @@ class ProyectoAdapter(private var consultarDatosAves:ArrayList<DatosAve>): Recyc
 
         val db = FirebaseFirestore.getInstance()
         // Obtener el usuario autentificado
-        //var autentication = FirebaseAuth.getInstance()
-        //var storage = FirebaseStorage.getInstance()
-        //lateinit var binding: ListaPajarosBinding
+        var autentication = FirebaseAuth.getInstance()
         val item:DatosAve = consultarDatosAves[position]
         holder.render(item)
 
@@ -70,17 +68,21 @@ class ProyectoAdapter(private var consultarDatosAves:ArrayList<DatosAve>): Recyc
         }
 
         // Descargar imagen
-        /*autentication.currentUser?.let {
+        autentication.currentUser?.let {
+            val storage = FirebaseStorage.getInstance()
             val refguardado = storage.getReference("profile/")
 
-            val refimagen = refguardado.child("profile/" + binding.NumeroCriador.hashCode() + "/canario.PNG")
+            val refimagen = refguardado.child("${consultarDatosAves[position].id}/" + "canario.png")
 
             refimagen.getBytes(1024 * 1024).addOnSuccessListener {
                 val foto = BitmapFactory.decodeByteArray(it, 0, it.size)
-
-                binding.imagenLista.setImageBipmap(foto)
+                holder.imagen.setImageBitmap(foto)
+                Log.i("ImagenLista", "Imagen cargada")
+            }.addOnFailureListener {
+                // Handle any errors
+                Log.i("ImagenLista2", "Error al cargar la imagen")
             }
-        }*/
+        }
     }
 
     override fun getItemCount(): Int = consultarDatosAves.size

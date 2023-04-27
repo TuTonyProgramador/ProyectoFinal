@@ -7,5 +7,6 @@ data class DatosAve(
     var Sexo: String = "",
     var Tipo: String = "",
     var id: String = "",
-    var Imagen: String = ""
+    var Imagen: String = "",
+    var Usuario: String = ""
 )

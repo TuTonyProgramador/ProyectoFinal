@@ -1,13 +1,16 @@
 package com.example.proyectofinal.adapter
 
 import android.view.View
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import com.example.proyectofinal.R
 import com.example.proyectofinal.databinding.ListaPajarosBinding
 
 
-class ProyectoViewHolder(view: View): RecyclerView.ViewHolder(view) {
+class ProyectoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val binding = ListaPajarosBinding.bind(view)
+
+    val imagen = itemView.findViewById<ImageView>(R.id.imagenLista)
 
     fun render(ProyectoModel: DatosAve) {
         // Mostrar el tipo de canario
@@ -20,9 +23,6 @@ class ProyectoViewHolder(view: View): RecyclerView.ViewHolder(view) {
         binding.Sexo.text = ProyectoModel.Sexo
         // Mostrar numero de anilla del canario
         binding.NumeroAnilla.text = ProyectoModel.Num_anilla
-
-        // Mostrar imagen del canario
-        Glide.with(binding.imagenLista.context).load(ProyectoModel.Imagen).into(binding.imagenLista)
 
     }
 

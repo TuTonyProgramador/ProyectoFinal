@@ -20,13 +20,13 @@ class DatosCriadorActivity : AppCompatActivity() {
 
         db.collection("Criadores")
             .whereEqualTo("NumeroCriador", numeroCriador)
-            .get().addOnSuccessListener(){
-                it.forEach{
-                    binding.ConsultarNombre.setText(it.get("Nombre")as String?)
-                    binding.ConsultarApellidos.setText(it.get("Apellidos")as String?)
-                    binding.ConsultarFederacion.setText(it.get("Federacion")as String?)
-                    binding.ConsultarLocalidad.setText(it.get("Localidad")as String?)
-                    binding.ConsultarAsociacion.setText(it.get("Asociacion")as String?)
+            .get().addOnSuccessListener() {
+                it.forEach {
+                    binding.ConsultarNombre.setText(it.get("Nombre") as String?)
+                    binding.ConsultarApellidos.setText(it.get("Apellidos") as String?)
+                    binding.ConsultarFederacion.setText(it.get("Federacion") as String?)
+                    binding.ConsultarLocalidad.setText(it.get("Localidad") as String?)
+                    binding.ConsultarAsociacion.setText(it.get("Asociacion") as String?)
                 }
             }
     }

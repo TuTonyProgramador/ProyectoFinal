@@ -11,7 +11,7 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         val screenSplash = installSplashScreen()
         super.onCreate(savedInstanceState)
-        screenSplash.setKeepOnScreenCondition{true}
+        screenSplash.setKeepOnScreenCondition { true }
         Thread.sleep(4000)
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)

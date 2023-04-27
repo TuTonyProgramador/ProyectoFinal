@@ -5,6 +5,8 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.*
 import android.widget.ImageButton
@@ -16,6 +18,7 @@ import com.example.proyectofinal.PajarosActivity
 import com.example.proyectofinal.R
 import com.example.proyectofinal.adapter.DatosAve
 import com.example.proyectofinal.databinding.FragmentAnadirBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -28,28 +31,35 @@ class AnadirFragment : Fragment(R.layout.fragment_anadir) {
     val db = FirebaseFirestore.getInstance()
     lateinit var storage: FirebaseStorage
     lateinit var imagen: ImageButton
-    lateinit var datos: DatosAve
+    lateinit var foto: String
+    lateinit var datosAve: DatosAve
 
-    val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()){
+    val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) {
         // Devuelve la uri de la imagen seleccionada
             uri ->
-        if(uri!=null) {
+        if (uri != null) {
             // Seleccionamos la imagen
             imagen.setImageURI(uri)
 
             Log.d("Galeria", "La imagen se ha seleccionado correctamente")
 
-        } else{
+        } else {
             Log.d("Galeria", "No se ha seleccionado ninguna imagen")
         }
     }
+
+    // Recuperar el correo
+    var usuario = FirebaseAuth.getInstance().currentUser
+    var correo = usuario?.email.toString()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        foto = ""
         _binding = FragmentAnadirBinding.inflate(inflater, container, false)
+        datosAve = DatosAve("", "", "", "","", "", foto,"")
         val view = binding.root
         // Asignacion del imagenbutton
         imagen = binding.imageB
@@ -57,11 +67,17 @@ class AnadirFragment : Fragment(R.layout.fragment_anadir) {
         // Inicializacion del storage
         storage = Firebase.storage
 
+        // Tiempo que va a tardar en aparecer la pantalla
+        val contador = 0
         binding.BRegistrarAve.setOnClickListener {
-            RegistrarAve()
-            // Llamada al metodo de subir imagen
-            subirImagen()
+            Handler(Looper.getMainLooper()).postDelayed({
+                if (contador == 0) {
+                    // Llamada al metodo de subir imagen
+                    subirImagen()
+                }
+            }, 2000)
         }
+
 
         // Cuando pulsemos sobre el imageButton, se va a llamar al launcher (pickMedia) para que se lanze
         imagen.setOnClickListener {
@@ -69,7 +85,6 @@ class AnadirFragment : Fragment(R.layout.fragment_anadir) {
         }
 
         return view
-
     }
 
     // Destruir la actividad
@@ -80,30 +95,50 @@ class AnadirFragment : Fragment(R.layout.fragment_anadir) {
 
     // Metodo para registrar el nuevo pajaro
     fun RegistrarAve() {
-        if(!(binding.tipoAve.text.isNullOrEmpty() && binding.numeroC.text.isNullOrEmpty() && binding.anioNacimiento.text.isNullOrEmpty() && binding.sexoA.text.isNullOrEmpty() && binding.numA.text.isNullOrEmpty())){
+        datosAve.Imagen = foto
+        if (!(binding.tipoAve.text.isNullOrEmpty() && binding.numeroC.text.isNullOrEmpty() && binding.anioNacimiento.text.isNullOrEmpty() && binding.sexoA.text.isNullOrEmpty() && binding.numA.text.isNullOrEmpty())) {
             db.collection("Canarios")
                 .document(binding.numeroC.hashCode().toString())
-                .set(mapOf("Tipo" to binding.tipoAve.text.toString(),
-                    "Numero_criador" to binding.numeroC.text.toString(),
-                    "Anio_nac" to binding.anioNacimiento.text.toString(),
-                    "Sexo" to binding.sexoA.text.toString(),
-                    "Num_anilla" to binding.numA.text.toString(),
-                    "id" to binding.numeroC.hashCode().toString()))
+                .set(
+                    mapOf(
+                        "Tipo" to binding.tipoAve.text.toString(),
+                        "Numero_criador" to binding.numeroC.text.toString(),
+                        "Anio_nac" to binding.anioNacimiento.text.toString(),
+                        "Sexo" to binding.sexoA.text.toString(),
+                        "Num_anilla" to binding.numA.text.toString(),
+                        "id" to binding.numeroC.hashCode().toString(),
+                        "Imagen" to datosAve.Imagen,
+                        "Usuario" to correo
+                    )
+                )
 
-                .addOnSuccessListener {
-                        documento -> Log.d(ContentValues.TAG, "Nuevo Pajaro añadido con id: ${binding.numeroC.hashCode()}")
+                .addOnSuccessListener { documento ->
+                    Log.d(
+                        ContentValues.TAG,
+                        "Nuevo Pajaro añadido con id: ${binding.numeroC.hashCode()}"
+                    )
                 }
-                .addOnFailureListener{
+                .addOnFailureListener {
                     Log.d(ContentValues.TAG, "Error en la interseccion del nuevo registro")
                 }
 
             // Volver a la actividad del homeFragment
             val homeFragment = Intent(activity, PajarosActivity::class.java)
+            // Llamar al correo
+            homeFragment.putExtra("emailUsuario", correo)
             startActivity(homeFragment)
 
-            Toast.makeText(requireActivity().applicationContext, "Nuevo pajaro añadido correctamente", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireActivity().applicationContext,
+                "Nuevo pajaro añadido correctamente",
+                Toast.LENGTH_SHORT
+            ).show()
         } else {
-            Toast.makeText(requireActivity().applicationContext, "Algun campo está vacio", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireActivity().applicationContext,
+                "Algun campo está vacio",
+                Toast.LENGTH_SHORT
+            ).show()
         }
 
     }
@@ -114,7 +149,7 @@ class AnadirFragment : Fragment(R.layout.fragment_anadir) {
         val storageRef = storage.reference
 
         // Referenciamos a donde queremos subir la imagen
-        val rutaImagen = storageRef.child("profile/" + binding.numeroC.hashCode() + "/canario.PNG")
+        val rutaImagen = storageRef.child("profile/${binding.numeroC.hashCode()}/" + "canario.png")
 
         // Cogemos la imagen y la transformamos en bitmap(imagen en bits)
         val bitmap = (imagen.drawable as BitmapDrawable).bitmap
@@ -130,14 +165,31 @@ class AnadirFragment : Fragment(R.layout.fragment_anadir) {
 
         // Poner los byte de la imagen en la ruta
         var uploadTask = rutaImagen.putBytes(data)
-        /*uploadTask.addOnFailureListener {
 
+        uploadTask.addOnFailureListener {
+            Toast.makeText(
+                requireActivity().applicationContext,
+                "Error al subir la imagen",
+                Toast.LENGTH_SHORT
+            ).show()
         }.addOnSuccessListener { taskSnapshot ->
-            rutaImagen.downloadUrl.addOnSuccessListener {
-                datos.Imagen = it.toString()
-            }
-        }*/
-    }
 
+            // Para la descarga
+            taskSnapshot.storage.downloadUrl.addOnSuccessListener {
+                foto = it.toString()
+                Log.i("UrlDescargarFoto", it.toString())
+
+                // Llamada al método para registrar la ave después de que se haya obtenido la URL de descarga
+                RegistrarAve()
+
+            }.addOnFailureListener {
+                Toast.makeText(
+                    requireActivity().applicationContext,
+                    "Error al obtener la URL de descarga",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
 
 }

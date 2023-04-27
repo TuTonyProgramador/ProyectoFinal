@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.proyectofinal.PajarosActivity
 import com.example.proyectofinal.R
 import com.example.proyectofinal.databinding.ActivityMainBinding
+import com.example.proyectofinal.menu.AnadirFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -43,27 +44,32 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun login(){
+    private fun login() {
         // Si el correo y el password no son campos vacios:
-        if(binding.IntroEmail.text.isNotEmpty() && binding.IntroContrasena.text.isNotEmpty()) {
+        if (binding.IntroEmail.text.isNotEmpty() && binding.IntroContrasena.text.isNotEmpty()) {
             // Iniciamos sesión con el método signIn y enviamos a Firebase el correo y la contraseña
             FirebaseAuth.getInstance().signInWithEmailAndPassword(
                 binding.IntroEmail.text.toString(),
                 binding.IntroContrasena.text.toString()
             )
-                .addOnCompleteListener{
+                .addOnCompleteListener {
                     // Si la autenticación tuvo éxito:
-                    if (it.isSuccessful){
+                    if (it.isSuccessful) {
                         // Accedemos a la pantalla PajarosActivity, que es la pantalla del programa donde va a mostrar los pajaros
                         val intent = Intent(this, PajarosActivity::class.java).apply {
                             putExtra("emailUsuario", binding.IntroEmail.text.toString())
                         }
                         startActivity(intent)
+
                         // Llamada al metodo patra limpiar el foco
                         clearFocus()
                     } else {
                         // sino avisamos el usuario que ocurrio un problema
-                        Toast.makeText(this,"El correo o la contraseña introducida es incorrecta", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this,
+                            "El correo o la contraseña introducida es incorrecta",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
         } else {
