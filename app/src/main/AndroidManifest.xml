@@ -19,7 +19,7 @@
         android:theme="@style/Theme.ProyectoFinal"
         tools:targetApi="31">
         <activity
-            android:name=".DatosCriadorActivity"
+            android:name=".menu.DatosCriadorActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -33,21 +33,21 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Login.RecordarConta"
+            android:name=".login.RecordarConta"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Login.LoginActivity"
+            android:name=".login.LoginActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".SplashActivity"
+            android:name=".splashActivity.SplashActivity"
             android:exported="true"
             android:theme="@style/TemaSplash">
             <intent-filter>
@@ -60,7 +60,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Login.MainActivity"
+            android:name=".login.MainActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

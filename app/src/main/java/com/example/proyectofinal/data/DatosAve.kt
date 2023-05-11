@@ -1,4 +1,4 @@
-package com.example.proyectofinal.adapter
+package com.example.proyectofinal.data
 
 data class DatosAve(
     var Anio_nac: String = "",

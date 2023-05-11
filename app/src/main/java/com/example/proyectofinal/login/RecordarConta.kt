@@ -1,4 +1,4 @@
-package com.example.proyectofinal.Login
+package com.example.proyectofinal.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,7 +13,11 @@ class RecordarConta : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Inflamos el layout de la actividad utilizando el método inflate del objeto binding
         binding = ActivityRecordarContaBinding.inflate(layoutInflater)
+
+        // Establecemos el layout inflado como contenido de la actividad
         setContentView(binding.root)
 
         // Boton de recordar la contraseña
@@ -25,36 +29,30 @@ class RecordarConta : AppCompatActivity() {
 
     // Metodo para recuperar la contraseña
     private fun recuperarContra() {
+        // Verificamos que el campo de correo electrónico no esté vacío
         if (binding.IntEmail.text.isNotEmpty()) {
-            // Iniciamos sesión con el método signIn y enviamos a Firebase el correo y la contraseña
+            // Iniciamos sesión con el método sendPasswordResetEmail de FirebaseAuth, que envía un correo electrónico para restablecer la contraseña
             FirebaseAuth.getInstance().sendPasswordResetEmail(
                 binding.IntEmail.text.toString()
             )
                 .addOnCompleteListener {
                     // Si la autenticación tuvo éxito:
                     if (it.isSuccessful) {
-                        Toast.makeText(
-                            this,
-                            "Se ha mandado un correo, para cambiar la contraseña",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        // Mostramos un mensaje de confirmación
+                        Toast.makeText(this, "Se ha mandado un correo, para cambiar la contraseña", Toast.LENGTH_SHORT ).show()
 
                         // Accedemos a la pantalla PajarosActivity, que es la pantalla del programa donde va a mostrar los pajaros
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
 
                     } else {
-                        // sino avisamos el usuario que ocurrio un problema
-                        Toast.makeText(
-                            this,
-                            "El correo  introducido no es correcto",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        // Si la autenticación no tuvo éxito, avisamos al usuario que ocurrió un problema
+                        Toast.makeText(this, "El correo introducido no es correcto", Toast.LENGTH_SHORT).show()
                     }
                 }
         } else {
+            // Si el campo de correo electrónico está vacío, avisamos al usuario
             Toast.makeText(this, "Algun campo está vacio", Toast.LENGTH_SHORT).show()
         }
-
     }
 }

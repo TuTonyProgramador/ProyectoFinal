@@ -1,15 +1,18 @@
-package com.example.proyectofinal.adapter
+package com.example.proyectofinal.viewHolder
 
 import android.view.View
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyectofinal.R
+import com.example.proyectofinal.data.DatosAve
 import com.example.proyectofinal.databinding.ListaPajarosBinding
 
 
 class ProyectoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val binding = ListaPajarosBinding.bind(view)
 
+    // Se define una variable `imagen` que hace referencia a la vista `ImageView` con id `imagenLista`
+    // definida en el archivo de diseño `lista_pajaros.xml`
     val imagen = itemView.findViewById<ImageView>(R.id.imagenLista)
 
     fun render(ProyectoModel: DatosAve) {

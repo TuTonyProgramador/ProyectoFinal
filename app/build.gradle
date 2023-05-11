@@ -48,7 +48,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     // Splash
-    implementation 'androidx.core:core-splashscreen:1.0.0'
+    implementation 'androidx.core:core-splashscreen:1.0.1'
     
     // Dependencia del firebase
     implementation platform('com.google.firebase:firebase-bom:31.1.1')

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".Login.MainActivity">
+    tools:context=".login.MainActivity">
 
     <ImageView
         android:id="@+id/ImagenInicio"
@@ -17,25 +17,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/user_icon" />
-
-    <EditText
-        android:id="@+id/IntroEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:hint="Email"
-        android:drawableStart="@drawable/email"
-        android:drawableLeft="@drawable/email"
-        android:drawablePadding="5dp"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ImagenInicio"
-        android:textColorHint="@color/white"
-        android:background="#30ffffff"
-        android:padding="10dp"/>
 
     <EditText
         android:id="@+id/IntroContrasena"
@@ -56,12 +37,32 @@
         android:background="#30ffffff"
         android:padding="10dp"/>
 
+    <EditText
+        android:id="@+id/IntroEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="Email"
+        android:drawableStart="@drawable/email"
+        android:drawableLeft="@drawable/email"
+        android:drawablePadding="5dp"
+        app:endIconMode="password_toggle"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ImagenInicio"
+        android:textColorHint="@color/white"
+        android:background="#30ffffff"
+        android:padding="10dp"/>
+
     <Button
         android:id="@+id/BIniciarSesion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/green"
         android:text="Iniciar Sesión"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -73,7 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/green"
         android:text="Registrarse"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,4 +93,5 @@
         app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/BLlevarRegistro" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,9 +22,21 @@
         android:icon="@drawable/modificar_ave"
         android:title="Modificar Pájaro"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/modo_Oscuro"
+        android:title="Modo Oscuro"
+        app:actionViewClass="android.widget.Switch"
+        android:icon="@drawable/modo_oscuro"/>
+
+    <item
+        android:id="@+id/soporte"
+        android:title="Soporte"
+        android:icon="@drawable/soporte"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/cerrar_sesion"
-        android:title="Cerrar Sesión"
         android:icon="@drawable/cerrar_seccion"
-        app:showAsAction="ifRoom"/>
+        android:title="Cerrar Sesión"
+        app:showAsAction="ifRoom" />
 </menu>
