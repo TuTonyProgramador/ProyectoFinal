@@ -121,9 +121,7 @@ class AnadirFragment : Fragment(R.layout.fragment_anadir) {
                 )
                 // Si se añaden los datos correctamente, muestra un mensaje en el log
                 .addOnSuccessListener { documento ->
-                    Log.d(
-                        ContentValues.TAG,
-                        "Nuevo Pajaro añadido con id: ${binding.numeroC.hashCode()}"
+                    Log.d(ContentValues.TAG, "Nuevo Pajaro añadido con id: ${binding.numeroC.hashCode()}"
                     )
                 }
                 // Si se produce un error al añadir los datos, muestra un mensaje en el log

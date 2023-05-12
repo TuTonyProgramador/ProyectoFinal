@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                                                                                                                        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,13 +11,12 @@
         android:id="@+id/Soporte"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="40dp"
         android:text="Soporte de la APP"
         android:textColor="@color/white"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,8 +24,8 @@
         android:id="@+id/TSoporte"
         android:layout_width="359dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
-        android:text="Si tiene alguna sugerencia con el fin de mejorar la aplicación, porfavor póngase en contacto con el administrador de la app, a través del siguiente correo."
+        android:layout_marginTop="44dp"
+        android:text="Si tiene alguna sugerencia con el fin de mejorar la aplicación, porfavor póngase en contacto con el administrador de la App, a través del siguiente correo."
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -38,13 +37,13 @@
         android:id="@+id/Tcorreo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:text="Correo del administrador:"
+        android:layout_marginTop="60dp"
+        android:text="Correo del Administrador:"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.145"
+        app:layout_constraintHorizontal_bias="0.147"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TSoporte" />
 
@@ -52,7 +51,7 @@
         android:id="@+id/TCorreoAdmin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:text="antonioortizgranados@gmail.com"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -62,16 +61,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Tcorreo" />
 
+    <TextView
+        android:id="@+id/TMandarMensaje"
+        android:layout_width="344dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="28dp"
+        android:text="Pulse aqui para mandar un mensaje al administrador"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.388"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TCorreoAdmin" />
+
     <ImageView
-        android:id="@+id/imageSoporte"
-        android:layout_width="294dp"
-        android:layout_height="178dp"
-        android:src="@drawable/soportefoto"
+        android:id="@+id/imageFlecha"
+        android:layout_width="132dp"
+        android:layout_height="132dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/flecha"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.469"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TMandarMensaje" />
+
+    <ImageView
+        android:id="@+id/imageEmail"
+        android:layout_width="159dp"
+        android:layout_height="96dp"
+        android:layout_marginBottom="76dp"
+        android:src="@drawable/imcorreo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.051"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TCorreoAdmin"
-        app:layout_constraintVertical_bias="0.18" />
+        app:layout_constraintHorizontal_bias="0.46"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
