@@ -1,147 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background"
-    tools:context=".menu.HomeFragment">
+    tools:context=".menu.AnadirCriadores">
 
     <TextView
-        android:id="@+id/TextEmail"
+        android:id="@+id/TextNCriador"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Registrar nueva Ave"
+        android:layout_marginTop="90dp"
+        android:text="Registrar Nuevo Criador"
         android:textColor="@color/white"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageB" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/tipoAve"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="#30ffffff"
-        android:ems="10"
-        android:hint="Tipo de Ave"
-        android:inputType="textPersonName"
-        android:padding="10dp"
-        android:textColorHint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextEmail"
-        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
-
-    <EditText
-        android:id="@+id/numeroC"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:background="#30ffffff"
-        android:ems="10"
-        android:hint="Numero de criador"
-        android:inputType="textCapCharacters"
-        android:padding="10dp"
-        android:textColorHint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tipoAve"
-        tools:ignore="TouchTargetSizeCheck" />
-
-    <EditText
-        android:id="@+id/anioNacimiento"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:background="#30ffffff"
-        android:ems="10"
-        android:hint="Año de nacimiento"
-        android:inputType="number"
-        android:padding="10dp"
-        android:textColorHint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numeroC"
-        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
-
-    <EditText
-        android:id="@+id/sexoA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:background="#30ffffff"
-        android:ems="10"
-        android:hint="Sexo"
-        android:inputType="textPersonName"
-        android:padding="10dp"
-        android:textColorHint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/anioNacimiento"
-        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
-
-    <EditText
-        android:id="@+id/numA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:background="#30ffffff"
-        android:ems="10"
-        android:hint="Numero de Anilla"
-        android:inputType="number"
-        android:padding="10dp"
-        android:textColorHint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sexoA"
-        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
-
-    <EditText
-        android:id="@+id/descri"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:background="#30ffffff"
-        android:ems="10"
-        android:hint="Descripción"
-        android:inputType="textPersonName"
-        android:padding="10dp"
-        android:textColorHint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numA"
-        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
-
-    <Button
-        android:id="@+id/BRegistrarAve"
+        android:id="@+id/numero_Criador"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:backgroundTint="@color/green"
-        android:text="Registrar Ave"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descri" />
-
-    <ImageButton
-        android:id="@+id/imageB"
-        android:layout_width="204dp"
-        android:layout_height="191dp"
-        android:layout_marginTop="10dp"
+        android:background="#30ffffff"
+        android:ems="10"
+        android:hint="Numero de Criador"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck" />
+        app:layout_constraintTop_toBottomOf="@+id/TextNCriador"
+        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
+    <EditText
+        android:id="@+id/n_Criador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#30ffffff"
+        android:ems="10"
+        android:hint="Nombre"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numero_Criador"
+        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
+    <EditText
+        android:id="@+id/a_Criador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#30ffffff"
+        android:ems="10"
+        android:hint="Apellidos"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/n_Criador"
+        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
+    <EditText
+        android:id="@+id/l_Criador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#30ffffff"
+        android:ems="10"
+        android:hint="Localidad"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/a_Criador"
+        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
+    <EditText
+        android:id="@+id/as_Criador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#30ffffff"
+        android:ems="10"
+        android:hint="Asociacion"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/l_Criador"
+        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
+    <EditText
+        android:id="@+id/f_Criador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#30ffffff"
+        android:ems="10"
+        android:hint="Federacion"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/as_Criador"
+        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/BRegistrarCriador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:backgroundTint="@color/green"
+        android:text="Registrar Nuevo Criador"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/f_Criador" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

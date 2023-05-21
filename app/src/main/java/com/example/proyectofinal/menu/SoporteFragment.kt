@@ -25,9 +25,6 @@ class SoporteFragment : Fragment(R.layout.fragment_soporte) {
         // Inflamos el layout con el binding
         _binding = FragmentSoporteBinding.inflate(inflater, container, false)
 
-        // Agregamos un Toast para mostrar instrucciones al usuario
-        //Toast.makeText(requireContext(), "Pulse la imagen del correo, para mandar un email al administrador", Toast.LENGTH_LONG).show()
-
         // Agregamos un escucha de clic al ImageView
         binding.imageEmail.setOnClickListener {
             // Llamamos a la función "composeEmail" para crear un correo electrónico

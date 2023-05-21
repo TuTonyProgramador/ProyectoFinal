@@ -6,6 +6,7 @@ data class DatosAve(
     var Numero_criador: String = "",
     var Sexo: String = "",
     var Tipo: String = "",
+    var Descripcion: String = "",
     var id: String = "",
     var Imagen: String = "",
     var Usuario: String = ""

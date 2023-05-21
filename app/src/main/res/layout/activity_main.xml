@@ -84,7 +84,7 @@
         android:id="@+id/RecordarContrasena"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="32dp"
         android:text="¿Olvidó su contraseña?"
         android:textColor="@color/white"
         android:textSize="18sp"

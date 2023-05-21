@@ -13,6 +13,11 @@
         android:title=" Añadir Nuevo Pájaro"
         app:showAsAction="ifRoom" />
     <item
+        android:id="@+id/anadir_criador"
+        android:icon="@drawable/anadir_nuevo"
+        android:title="Añadir Nuevo Criador"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/consultar_criadores"
         android:icon="@drawable/ver_criador"
         android:title="Consultar Datos de Criador"
@@ -24,11 +29,15 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/calendario"
+        android:title="Calendario"
+        android:icon="@drawable/calendario"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/modo_Oscuro"
+        android:icon="@drawable/modo_oscuro"
         android:title="Modo Oscuro"
-        app:actionViewClass="android.widget.Switch"
-        android:icon="@drawable/modo_oscuro"/>
-
+        app:actionViewClass="android.widget.Switch" />
     <item
         android:id="@+id/soporte"
         android:title="Soporte"

@@ -48,13 +48,13 @@ class LoginActivity : AppCompatActivity() {
                             .set(
                                 mapOf(
                                     "Nombre" to binding.INombre.text.toString(),
-                                    "Apellidos" to binding.IApellidos.text.toString()
+                                    "Apellidos" to binding.IApellidos.text.toString(),
+                                    "Rol" to "Usuario"
                                 )
                             )
 
                         // Accedemos a la pantalla InicioActivity, para dar la bienvenida al usuario
                         val intent = Intent(this, MainActivity::class.java)
-
                         startActivity(intent)
 
                     } else {

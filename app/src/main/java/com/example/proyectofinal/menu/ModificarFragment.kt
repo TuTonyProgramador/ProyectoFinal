@@ -55,6 +55,7 @@ class ModificarFragment : Fragment(R.layout.fragment_modificar) {
                                 binding.MAnioN.setText(it.get("Anio_nac") as String?)
                                 binding.MSexo.setText(it.get("Sexo") as String?)
                                 binding.MTipoAve.setText(it.get("Tipo") as String?)
+                                binding.descripci.setText(it.get("Descripcion") as String?)
                                 obtenerFoto = (it.get("Imagen") as String?)
                                 correo = (it.get("Usuario") as String)
                                 documentId = (it.get("id") as String)
@@ -96,6 +97,7 @@ class ModificarFragment : Fragment(R.layout.fragment_modificar) {
                     "Anio_nac" to binding.MAnioN.text.toString(),
                     "Sexo" to binding.MSexo.text.toString(),
                     "Tipo" to binding.MTipoAve.text.toString(),
+                    "Descripcion" to binding.descripci.text.toString(),
                     "id" to documentId,
                     "Imagen" to obtenerFoto,
                     "Usuario" to correo
@@ -117,6 +119,8 @@ class ModificarFragment : Fragment(R.layout.fragment_modificar) {
 
                 // Llamar al correo
                 homeFragment.putExtra("emailUsuario", correo)
+                // Llamar al nombre
+                homeFragment.putExtra("Nombre", correo)
                 startActivity(homeFragment)
             }
         }

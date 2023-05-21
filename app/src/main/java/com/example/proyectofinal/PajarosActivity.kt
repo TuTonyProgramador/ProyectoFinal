@@ -3,6 +3,7 @@ package com.example.proyectofinal
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Switch
 import android.widget.TextView
@@ -15,6 +16,7 @@ import com.example.proyectofinal.login.MainActivity
 import com.example.proyectofinal.databinding.ActivityPajarosBinding
 import com.example.proyectofinal.menu.*
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class PajarosActivity : AppCompatActivity() {
@@ -38,6 +40,13 @@ class PajarosActivity : AppCompatActivity() {
         val nav = binding.navView.getHeaderView(0)
         val email = nav.findViewById<TextView>(R.id.CorreoUsu)
         email.text = intent.getStringExtra("emailUsuario")
+        val nombre = nav.findViewById<TextView>(R.id.Nombre)
+        nombre.text = intent.getStringExtra("Nombre")
+
+
+        // Metodo para obtener permisos
+        ObtenerPermisos()
+
 
         // Establecer un listener al menú de navegación
         binding.navView.setNavigationItemSelectedListener {
@@ -54,6 +63,12 @@ class PajarosActivity : AppCompatActivity() {
                         commit()
                     }
                 }
+                R.id.anadir_criador -> {
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.fragmentContainerView, AnadirCriadores())
+                        commit()
+                    }
+                }
                 R.id.consultar_criadores -> {
                     supportFragmentManager.beginTransaction().apply {
                         replace(R.id.fragmentContainerView, CriadorFragment())
@@ -66,13 +81,11 @@ class PajarosActivity : AppCompatActivity() {
                         commit()
                     }
                 }
-                R.id.cerrar_sesion -> {
-                    FirebaseAuth.getInstance().signOut()
-                    Toast.makeText(this, "Ha cerrado seccion", Toast.LENGTH_SHORT).show()
-                    // Volver a la actividad del MainActivity (al inicio de seccion)
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
-
+                R.id.calendario -> {
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.fragmentContainerView, CalendarioFragment())
+                        commit()
+                    }
                 }
                 R.id.modo_Oscuro -> {
 
@@ -82,6 +95,14 @@ class PajarosActivity : AppCompatActivity() {
                         replace(R.id.fragmentContainerView, SoporteFragment())
                         commit()
                     }
+                }
+                R.id.cerrar_sesion -> {
+                    FirebaseAuth.getInstance().signOut()
+                    Toast.makeText(this, "Ha cerrado seccion", Toast.LENGTH_SHORT).show()
+                    // Volver a la actividad del MainActivity (al inicio de seccion)
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+
                 }
             }
             binding.drawer.closeDrawer(GravityCompat.START)
@@ -108,6 +129,31 @@ class PajarosActivity : AppCompatActivity() {
             }
             recreate()
         }
+    }
+
+    fun ObtenerPermisos () {
+        val auth = FirebaseAuth.getInstance()
+        val correo = auth.currentUser?.email.toString()
+        var db = FirebaseFirestore.getInstance()
+
+        db.collection("Usuarios").document(correo).get()
+            .addOnSuccessListener { documentSnapshot ->
+                if (documentSnapshot.exists()) {
+                    val privilegios = documentSnapshot.getString("Rol")
+
+                    if (privilegios == "Usuario") {
+                        // Menu
+                        binding.navView.menu.findItem(R.id.anadir_criador).isVisible = false
+                        binding.navView.menu.findItem(R.id.anadir_criador).isVisible = false
+
+                    }
+                    if (privilegios == "Admin") {
+                        binding.navView.menu.findItem(R.id.anadir_criador).isVisible = true
+                        binding.navView.menu.findItem(R.id.anadir_criador).isVisible = true
+                    }
+                }
+                Log.d("Usuario", "Datos Usuario: ${documentSnapshot.data}")
+            }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

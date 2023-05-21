@@ -60,7 +60,7 @@ class AnadirFragment : Fragment(R.layout.fragment_anadir) {
         // Inicialización de variables y vista
         foto = ""
         _binding = FragmentAnadirBinding.inflate(inflater, container, false)
-        datosAve = DatosAve("", "", "", "","", "", foto,"")
+        datosAve = DatosAve("", "", "", "","","", "", foto,"")
         val view = binding.root
 
         // Asignacion del imagenbutton
@@ -101,7 +101,7 @@ class AnadirFragment : Fragment(R.layout.fragment_anadir) {
         datosAve.Imagen = foto
 
         // Comprobación de que los campos no estén vacíos
-        if (!(binding.tipoAve.text.isNullOrEmpty() && binding.numeroC.text.isNullOrEmpty() && binding.anioNacimiento.text.isNullOrEmpty() && binding.sexoA.text.isNullOrEmpty() && binding.numA.text.isNullOrEmpty())) {
+        if (!(binding.tipoAve.text.isNullOrEmpty() && binding.numeroC.text.isNullOrEmpty() && binding.anioNacimiento.text.isNullOrEmpty() && binding.sexoA.text.isNullOrEmpty() && binding.numA.text.isNullOrEmpty() && binding.descri.text.isNullOrEmpty())) {
             // Añadir los datos del ave a la base de datos
             db.collection("Canarios")
                 // Crea un documento en la colección "Canarios" con un ID generado a partir del hashCode del número de criador
@@ -114,6 +114,7 @@ class AnadirFragment : Fragment(R.layout.fragment_anadir) {
                         "Anio_nac" to binding.anioNacimiento.text.toString(),
                         "Sexo" to binding.sexoA.text.toString(),
                         "Num_anilla" to binding.numA.text.toString(),
+                        "Descripcion" to binding.descri.text.toString(),
                         "id" to binding.numeroC.hashCode().toString(),
                         "Imagen" to datosAve.Imagen,
                         "Usuario" to correo
@@ -133,6 +134,8 @@ class AnadirFragment : Fragment(R.layout.fragment_anadir) {
             val homeFragment = Intent(activity, PajarosActivity::class.java)
             // Llamar al correo
             homeFragment.putExtra("emailUsuario", correo)
+            // Llamar al nombre
+            homeFragment.putExtra("Nombre", correo)
             // Inicia la actividad de PajarosActivity y pasa el correo como parámetro
             startActivity(homeFragment)
 
@@ -147,6 +150,13 @@ class AnadirFragment : Fragment(R.layout.fragment_anadir) {
 
     // Metodo para subir una foto
     private fun subirImagen() {
+        // Verificar si se ha seleccionado imagen
+        val drawable = imagen.drawable
+        if (drawable == null || drawable !is BitmapDrawable) {
+            // Mostrar un mensaje de error o realizar alguna acción en caso de que no se haya seleccionado una imagen
+            Toast.makeText(requireActivity().applicationContext, "No se ha seleccionado una imagen", Toast.LENGTH_SHORT).show()
+            return
+        }
         // Creamos la referencia al storage
         val storageRef = storage.reference
 
@@ -154,7 +164,7 @@ class AnadirFragment : Fragment(R.layout.fragment_anadir) {
         val rutaImagen = storageRef.child("profile/${binding.numeroC.hashCode()}/" + "canario.png")
 
         // Cogemos la imagen y la transformamos en bitmap(imagen en bits)
-        val bitmap = (imagen.drawable as BitmapDrawable).bitmap
+        val bitmap = drawable.bitmap
 
         // Canal de comunicacion para mandar unos datos
         val baos = ByteArrayOutputStream()
