@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.proyectofinal.PajarosActivity
 import com.example.proyectofinal.R
@@ -35,8 +37,25 @@ class ModificarFragment : Fragment(R.layout.fragment_modificar) {
         _binding = FragmentModificarBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        // Poner invisibles los edittext
+        binding.MTipoAve.isVisible = false
+        binding.MSexo.isVisible = false
+        binding.descripci.isVisible = false
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Realizar la navegación deseada cuando se presione el botón de retroceso
+                val homeFragment = Intent(activity, PajarosActivity::class.java)
+                startActivity(homeFragment)
+                requireActivity().finish()
+            }
+        })
+
         // Configurar el botón de consulta
         binding.BConsultar.setOnClickListener {
+            // Obtiene el email del usuario actual
+            val currentUserEmail = FirebaseAuth.getInstance().currentUser?.email
+
             // Verificar que no haya campos vacíos en la consulta
             if (!(binding.MAnioN.text.isNullOrEmpty() && binding.MNumAni.text.isNullOrEmpty() && binding.MNumC.text.isNullOrEmpty() && binding.MSexo.text.isNullOrEmpty() && binding.MTipoAve.text.isNullOrEmpty())) {
                 // Realizar la consulta a Firestore para buscar el documento correspondiente
@@ -44,6 +63,7 @@ class ModificarFragment : Fragment(R.layout.fragment_modificar) {
                     .whereEqualTo("Numero_criador", binding.MNumC.text.toString())
                     .whereEqualTo("Num_anilla", binding.MNumAni.text.toString())
                     .whereEqualTo("Anio_nac", binding.MAnioN.text.toString())
+                    .whereEqualTo("Usuario", currentUserEmail)
                     .get()
                     .addOnSuccessListener { querySnapshot ->
                         if (!querySnapshot.isEmpty) {
@@ -60,6 +80,11 @@ class ModificarFragment : Fragment(R.layout.fragment_modificar) {
                                 correo = (it.get("Usuario") as String)
                                 documentId = (it.get("id") as String)
                             }
+
+                            // Poner visibles los edittext
+                            binding.MTipoAve.isVisible = true
+                            binding.MSexo.isVisible = true
+                            binding.descripci.isVisible = true
 
                             // Hacer visible el boton de modificar
                             binding.BModificar.visibility = View.VISIBLE
@@ -85,6 +110,9 @@ class ModificarFragment : Fragment(R.layout.fragment_modificar) {
 
         // Configurar el botón de modificar
         binding.BModificar.setOnClickListener {
+            // Desactivar el botón de consulta
+            binding.BConsultar.isEnabled = false
+
             // Obtener instancia de FirebaseAuth
             var auth = FirebaseAuth.getInstance()
 
@@ -107,6 +135,9 @@ class ModificarFragment : Fragment(R.layout.fragment_modificar) {
                     .addOnSuccessListener {
                         // Si la actualización fue exitosa, mostrar un mensaje de éxito
                         Toast.makeText(requireActivity().applicationContext, "El pájaro ha sido actualizado correctamente", Toast.LENGTH_SHORT).show()
+
+                        // Finalizar la actividad actual
+                        requireActivity().finish()
                     }
                     .addOnFailureListener {
                         // Si la actualización falló, mostrar un mensaje de error
@@ -116,11 +147,6 @@ class ModificarFragment : Fragment(R.layout.fragment_modificar) {
 
                 // Volver a la actividad del homeFragment
                 val homeFragment = Intent(activity, PajarosActivity::class.java)
-
-                // Llamar al correo
-                homeFragment.putExtra("emailUsuario", correo)
-                // Llamar al nombre
-                homeFragment.putExtra("Nombre", correo)
                 startActivity(homeFragment)
             }
         }

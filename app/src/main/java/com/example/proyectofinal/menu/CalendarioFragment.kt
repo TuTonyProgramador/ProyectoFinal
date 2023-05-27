@@ -2,13 +2,16 @@ package com.example.proyectofinal.menu
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import com.example.proyectofinal.PajarosActivity
 import com.example.proyectofinal.R
-import com.example.proyectofinal.data.DataNotas
+import com.example.proyectofinal.data.DatosNotas
 import com.example.proyectofinal.databinding.FragmentCalendarioBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -33,7 +36,7 @@ class CalendarioFragment : Fragment(R.layout.fragment_calendario) {
     var anio : Int = 0
     var fecha : String = ""
 
-    private var listaNotas = ArrayList<DataNotas>()
+    private var listaNotas = ArrayList<DatosNotas>()
 
     // Recuperar el correo del usuario
     var usuario = FirebaseAuth.getInstance().currentUser
@@ -64,6 +67,15 @@ class CalendarioFragment : Fragment(R.layout.fragment_calendario) {
             }
         }
 
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Realizar la navegación deseada cuando se presione el botón de retroceso
+                val homeFragment = Intent(activity, PajarosActivity::class.java)
+                startActivity(homeFragment)
+                requireActivity().finish()
+            }
+        })
+
         return view
     }
 
@@ -71,7 +83,6 @@ class CalendarioFragment : Fragment(R.layout.fragment_calendario) {
     private fun showNoteDialog(context: Context, year: Int, month: Int, dayOfMonth: Int) {
         val builder = AlertDialog.Builder(context)
         builder.setTitle("Añadir nota $dayOfMonth/${month+1}/$year")
-
         val input = EditText(context)
 
         builder.setView(input)
@@ -99,12 +110,10 @@ class CalendarioFragment : Fragment(R.layout.fragment_calendario) {
                     }
             }
         }
-
         // Acciones del botón "Cancelar" del diálogo
         builder.setNegativeButton("Cancelar") { dialog, which ->
             dialog.cancel()
         }
-
         // Acciones del botón "Ver notas" del diálogo
         builder.setNeutralButton("Ver notas") { dialog, which ->
             showNotesForDate(context)
@@ -133,7 +142,7 @@ class CalendarioFragment : Fragment(R.layout.fragment_calendario) {
                     val id = document.getString("id") ?: ""
                     val usuario = document.getString("Usuario") ?: ""
                     val fecha = document.getString("fecha") ?: ""
-                    val dataNota = DataNotas(nota, usuario, fecha, id)
+                    val dataNota = DatosNotas(nota, usuario, fecha, id)
                     listaNotas.add(dataNota)
                 }
 

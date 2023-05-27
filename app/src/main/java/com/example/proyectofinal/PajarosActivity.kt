@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.GravityCompat
 import com.example.proyectofinal.login.MainActivity
 import com.example.proyectofinal.databinding.ActivityPajarosBinding
@@ -39,14 +40,13 @@ class PajarosActivity : AppCompatActivity() {
         // Cargar el correo en la cabecera del menu
         val nav = binding.navView.getHeaderView(0)
         val email = nav.findViewById<TextView>(R.id.CorreoUsu)
-        email.text = intent.getStringExtra("emailUsuario")
+        email.text =  FirebaseAuth.getInstance().currentUser?.email
+        obtenerDatos { userName ->
         val nombre = nav.findViewById<TextView>(R.id.Nombre)
-        nombre.text = intent.getStringExtra("Nombre")
-
+        nombre.text = userName }
 
         // Metodo para obtener permisos
-        ObtenerPermisos()
-
+        obtenerPermisos()
 
         // Establecer un listener al menú de navegación
         binding.navView.setNavigationItemSelectedListener {
@@ -66,6 +66,12 @@ class PajarosActivity : AppCompatActivity() {
                 R.id.anadir_criador -> {
                     supportFragmentManager.beginTransaction().apply {
                         replace(R.id.fragmentContainerView, AnadirCriadores())
+                        commit()
+                    }
+                }
+                R.id.eliminar_criador -> {
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.fragmentContainerView, EliminarCriadores())
                         commit()
                     }
                 }
@@ -110,28 +116,34 @@ class PajarosActivity : AppCompatActivity() {
         }
 
         // Modo oscuro
-
         // Obtener la referencia al botón switch del menú
-        val switch = binding.navView.menu.findItem(R.id.modo_Oscuro).actionView as Switch
+        val switchDarkmode = binding.navView.menu.findItem(R.id.modo_Oscuro).actionView as Switch
 
-        // Establecer el estado inicial del switch
-        val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-        switch.isChecked = currentNightMode == Configuration.UI_MODE_NIGHT_YES
+        // Para marcar el switch
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            switchDarkmode.isChecked = true
+        } else {
+            switchDarkmode.isChecked = false
+        }
 
         // Agregar un listener al botón switch
-        switch.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
+        switchDarkmode.setOnCheckedChangeListener { _, isSelected ->
+            if (isSelected) {
                 // Activar modo oscuro
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                // Aplicar el modo
+                delegate.applyDayNight()
             } else {
                 // Activar modo claro
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                // Aplicar el modo
+                delegate.applyDayNight()
             }
-            recreate()
         }
+
     }
 
-    fun ObtenerPermisos () {
+    fun obtenerPermisos () {
         val auth = FirebaseAuth.getInstance()
         val correo = auth.currentUser?.email.toString()
         var db = FirebaseFirestore.getInstance()
@@ -144,16 +156,43 @@ class PajarosActivity : AppCompatActivity() {
                     if (privilegios == "Usuario") {
                         // Menu
                         binding.navView.menu.findItem(R.id.anadir_criador).isVisible = false
-                        binding.navView.menu.findItem(R.id.anadir_criador).isVisible = false
+                        binding.navView.menu.findItem(R.id.eliminar_criador).isVisible = false
 
                     }
                     if (privilegios == "Admin") {
                         binding.navView.menu.findItem(R.id.anadir_criador).isVisible = true
-                        binding.navView.menu.findItem(R.id.anadir_criador).isVisible = true
+                        binding.navView.menu.findItem(R.id.eliminar_criador).isVisible = true
                     }
                 }
                 Log.d("Usuario", "Datos Usuario: ${documentSnapshot.data}")
             }
+    }
+
+    fun obtenerDatos(onUserLoaded: (userName: String) -> Unit) {
+        var nombre: String
+        var apellidos: String
+        var userName: String
+
+        val auth = FirebaseAuth.getInstance()
+        val db = FirebaseFirestore.getInstance()
+
+        auth.currentUser?.let {
+            db.collection("Usuarios")
+                .get()
+                .addOnSuccessListener { documents ->
+                    for (usuario in documents) {
+                        if (usuario.id == auth.currentUser?.email){
+                            nombre = usuario.getString("Nombre") ?: ""
+                            apellidos = usuario.getString("Apellidos") ?: ""
+                            userName = nombre + " " + apellidos
+                            onUserLoaded(userName) // Llama a la función lambda con el nombre de usuario
+                        }
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.d("Usuario", "Error al obtener el usuario", exception)
+                }
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

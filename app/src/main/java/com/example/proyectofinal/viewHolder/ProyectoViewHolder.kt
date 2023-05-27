@@ -27,7 +27,7 @@ class ProyectoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         // Mostrar numero de anilla del canario
         binding.NumeroAnilla.text = ProyectoModel.Num_anilla
         // Mostrar numero de anilla del canario
-        binding.Descripcion.text = ProyectoModel.Descripcion
+        binding.DescripcionAve.text = ProyectoModel.Descripcion
 
     }
 }

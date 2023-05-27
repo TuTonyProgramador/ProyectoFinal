@@ -11,7 +11,7 @@
         android:id="@+id/TextModificar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="85dp"
+        android:layout_marginTop="75dp"
         android:text="Modificar Ave"
         android:textColor="@color/white"
         android:textSize="25sp"
@@ -34,50 +34,52 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TextModificar" />
 
+
     <EditText
         android:id="@+id/MTipoAve"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#30ffffff"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Tipo de Ave"
         android:inputType="textPersonName"
         android:padding="10dp"
         android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextIntro" />
-
+        app:layout_constraintTop_toBottomOf="@+id/MNumAni" />
 
     <EditText
         android:id="@+id/MNumC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:background="#30ffffff"
+        android:layout_marginTop="35dp"
         android:ems="10"
         android:hint="Numero de criador"
         android:inputType="textCapCharacters"
         android:padding="10dp"
         android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MTipoAve" />
+        app:layout_constraintTop_toBottomOf="@+id/TextIntro" />
 
     <EditText
         android:id="@+id/MAnioN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:background="#30ffffff"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Año de nacimiento"
         android:inputType="number"
         android:padding="10dp"
         android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/MNumC" />
 
@@ -85,53 +87,55 @@
         android:id="@+id/MSexo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:background="#30ffffff"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Sexo"
         android:inputType="textPersonName"
         android:padding="10dp"
         android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MAnioN" />
+        app:layout_constraintTop_toBottomOf="@+id/MTipoAve" />
 
     <EditText
         android:id="@+id/MNumAni"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:background="#30ffffff"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Numero de anilla"
         android:inputType="number"
         android:padding="10dp"
         android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MSexo" />
+        app:layout_constraintTop_toBottomOf="@+id/MAnioN" />
 
     <EditText
         android:id="@+id/descripci"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:background="#30ffffff"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Descripcion"
-        android:inputType="number"
+        android:inputType="textPersonName"
         android:padding="10dp"
         android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MNumAni" />
+        app:layout_constraintTop_toBottomOf="@+id/MSexo" />
 
     <Button
         android:id="@+id/BConsultar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="60dp"
         android:backgroundTint="@color/green"
         android:text="Consultar"
         app:layout_constraintEnd_toEndOf="parent"

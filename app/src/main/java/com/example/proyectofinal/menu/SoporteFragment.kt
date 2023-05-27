@@ -7,8 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import com.example.proyectofinal.PajarosActivity
 import com.example.proyectofinal.R
 import com.example.proyectofinal.databinding.FragmentSoporteBinding
+import com.google.firebase.auth.FirebaseAuth
 
 
 class SoporteFragment : Fragment(R.layout.fragment_soporte) {
@@ -30,6 +33,15 @@ class SoporteFragment : Fragment(R.layout.fragment_soporte) {
             // Llamamos a la función "composeEmail" para crear un correo electrónico
             composeEmail("antonioortizgranados@gmail.com", "Sugerencia para Soporte", "")
         }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Realizar la navegación deseada cuando se presione el botón de retroceso
+                val homeFragment = Intent(activity, PajarosActivity::class.java)
+                startActivity(homeFragment)
+                requireActivity().finish()
+            }
+        })
 
         // Devolvemos la vista raíz del binding
         return binding.root

@@ -11,8 +11,10 @@ import android.util.Log
 import android.view.*
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.fragment.app.Fragment
 import com.example.proyectofinal.PajarosActivity
 import com.example.proyectofinal.R
@@ -82,24 +84,26 @@ class AnadirFragment : Fragment(R.layout.fragment_anadir) {
                     // Llamada al metodo de subir imagen
                     subirImagen()
                 }
-            }, 2000)
+            }, 1500)
         }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Realizar la navegación deseada cuando se presione el botón de retroceso
+                val homeFragment = Intent(activity, PajarosActivity::class.java)
+                startActivity(homeFragment)
+                requireActivity().finish()
+            }
+        })
 
         // Devuelve la vista del fragmento
         return view
-    }
-
-    // Destrucción del Fragment
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     // Método para registrar el nuevo pájaro en la base de datos
     fun RegistrarAve() {
         // Asignación de la foto seleccionada a los datos del ave
         datosAve.Imagen = foto
-
         // Comprobación de que los campos no estén vacíos
         if (!(binding.tipoAve.text.isNullOrEmpty() && binding.numeroC.text.isNullOrEmpty() && binding.anioNacimiento.text.isNullOrEmpty() && binding.sexoA.text.isNullOrEmpty() && binding.numA.text.isNullOrEmpty() && binding.descri.text.isNullOrEmpty())) {
             // Añadir los datos del ave a la base de datos
@@ -124,20 +128,18 @@ class AnadirFragment : Fragment(R.layout.fragment_anadir) {
                 .addOnSuccessListener { documento ->
                     Log.d(ContentValues.TAG, "Nuevo Pajaro añadido con id: ${binding.numeroC.hashCode()}"
                     )
+                    // Finaliza la actividad actual
+                    requireActivity().finish()
                 }
                 // Si se produce un error al añadir los datos, muestra un mensaje en el log
                 .addOnFailureListener {
                     Log.d(ContentValues.TAG, "Error en la interseccion del nuevo registro")
                 }
+            // Volver a la actividad del PajarosActivity
+            val pajarosA = Intent(activity, PajarosActivity::class.java)
 
-            // Volver a la actividad del homeFragment
-            val homeFragment = Intent(activity, PajarosActivity::class.java)
-            // Llamar al correo
-            homeFragment.putExtra("emailUsuario", correo)
-            // Llamar al nombre
-            homeFragment.putExtra("Nombre", correo)
             // Inicia la actividad de PajarosActivity y pasa el correo como parámetro
-            startActivity(homeFragment)
+            startActivity(pajarosA)
 
             // Muestra un mensaje indicando que se ha añadido el ave correctamente
             Toast.makeText(requireActivity().applicationContext, "Nuevo pajaro añadido correctamente", Toast.LENGTH_SHORT).show()
@@ -147,6 +149,8 @@ class AnadirFragment : Fragment(R.layout.fragment_anadir) {
         }
 
     }
+
+
 
     // Metodo para subir una foto
     private fun subirImagen() {
@@ -181,7 +185,7 @@ class AnadirFragment : Fragment(R.layout.fragment_anadir) {
         // Si se produce un error al subir la imagen, muestra un mensaje de error
         uploadTask.addOnFailureListener {
             Toast.makeText(requireActivity().applicationContext, "Error al subir la imagen", Toast.LENGTH_SHORT).show()
-        // Si se sube la imagen correctamente, obtiene la URL de descarga y llama al método RegistrarAve() para añadir los datos del ave a la base de datos
+            // Si se sube la imagen correctamente, obtiene la URL de descarga y llama al método RegistrarAve() para añadir los datos del ave a la base de datos
         }.addOnSuccessListener { taskSnapshot ->
             // Para la descarga
             taskSnapshot.storage.downloadUrl.addOnSuccessListener {
@@ -195,5 +199,11 @@ class AnadirFragment : Fragment(R.layout.fragment_anadir) {
                 Toast.makeText(requireActivity().applicationContext, "Error al obtener la URL de descarga", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    // Destrucción del Fragment
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

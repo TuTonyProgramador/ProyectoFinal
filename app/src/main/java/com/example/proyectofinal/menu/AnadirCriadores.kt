@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import com.example.proyectofinal.PajarosActivity
 import com.example.proyectofinal.R
 import com.example.proyectofinal.databinding.FragmentAnadirCriadoresBinding
@@ -23,10 +24,6 @@ class AnadirCriadores : Fragment(R.layout.fragment_anadir_criadores) {
     private val binding get() = _binding!!
     val db = FirebaseFirestore.getInstance()
 
-    // Recuperar el correo del usuario
-    var usuario = FirebaseAuth.getInstance().currentUser
-    var correo = usuario?.email.toString()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,6 +34,15 @@ class AnadirCriadores : Fragment(R.layout.fragment_anadir_criadores) {
         binding.BRegistrarCriador.setOnClickListener {
             RegistrarCriadores()
         }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Realizar la navegación deseada cuando se presione el botón de retroceso
+                val homeFragment = Intent(activity, PajarosActivity::class.java)
+                startActivity(homeFragment)
+                requireActivity().finish()
+            }
+        })
 
         return view
     }
@@ -57,7 +63,7 @@ class AnadirCriadores : Fragment(R.layout.fragment_anadir_criadores) {
                 )
                 // Si se añaden los datos correctamente, muestra un mensaje en el log
                 .addOnSuccessListener { documento ->
-                    Log.d(ContentValues.TAG, "Nuevo Pajaro añadido con id: ${binding.numeroCriador.hashCode()}")
+                    Log.d(ContentValues.TAG, "Nuevo Criador añadido con id: ${binding.numeroCriador.hashCode()}")
                 }
                 // Si se produce un error al añadir los datos, muestra un mensaje en el log
                 .addOnFailureListener {
@@ -65,12 +71,11 @@ class AnadirCriadores : Fragment(R.layout.fragment_anadir_criadores) {
                 }
             // Volver a la actividad del homeFragment
             val homeFragment = Intent(activity, PajarosActivity::class.java)
-            // Llamar al correo
-            homeFragment.putExtra("emailUsuario", correo)
-            // Llamar al nombre
-            homeFragment.putExtra("Nombre", correo)
             // Inicia la actividad de PajarosActivity y pasa el correo como parámetro
             startActivity(homeFragment)
+
+            // Finaliza la actividad actual
+            requireActivity().finish()
 
         } else {
             // Si hay campos vacíos en la consulta, mostrar un mensaje de error

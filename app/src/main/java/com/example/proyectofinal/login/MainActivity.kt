@@ -1,9 +1,11 @@
 package com.example.proyectofinal.login
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.proyectofinal.PajarosActivity
 import com.example.proyectofinal.databinding.ActivityMainBinding
@@ -22,12 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         // Boton para iniciar seccion
         binding.BIniciarSesion.setOnClickListener {
-            login { userName ->
-                val intent = Intent(this, PajarosActivity::class.java)
-                intent.putExtra("emailUsuario", binding.IntroEmail.text.toString())
-                intent.putExtra("Nombre", userName)
-                startActivity(intent)
-            }
+            login()
         }
 
         // Boton para que nos lleve a la ventana del registro
@@ -42,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun login(onUserLoaded: (userName: String) -> Unit) {
+    private fun login() {
         // Si el correo y el password no son campos vacios:
         if (binding.IntroEmail.text.isNotEmpty() && binding.IntroContrasena.text.isNotEmpty()) {
             // Iniciamos sesión con el método signIn y enviamos a Firebase el correo y la contraseña
@@ -50,48 +47,27 @@ class MainActivity : AppCompatActivity() {
                 binding.IntroEmail.text.toString(),
                 binding.IntroContrasena.text.toString()
             )
-                .addOnCompleteListener { task ->
+                .addOnCompleteListener {
                     // Si la autenticación tuvo éxito:
-                    if (task.isSuccessful) {
-                        var nombre: String
-                        var apellidos: String
-                        var userName: String
-
-                        val auth = FirebaseAuth.getInstance()
-                        val db = FirebaseFirestore.getInstance()
+                    if (it.isSuccessful) {
 
                         eliminarNotasAnterioresAlDiaActual()
 
-                        auth.currentUser?.let {
-                            db.collection("Usuarios")
-                                //.whereEqualTo("id", auth.currentUser?.email)
-                                .get()
-                                .addOnSuccessListener { documents ->
-                                    for (usuario in documents) {
-                                        if (usuario.id == auth.currentUser?.email){
-                                            nombre = usuario.getString("Nombre") ?: ""
-                                            apellidos = usuario.getString("Apellidos") ?: ""
-                                            userName = nombre + " " + apellidos
-                                            onUserLoaded(userName) // Llama a la función lambda con el nombre de usuario
-
-                                            clearFocus()
-
-                                            finish()
-                                        }
-                                    }
-                                }
-                                .addOnFailureListener { exception ->
-                                    Log.d("Usuario", "Error al obtener el usuario", exception)
-                                }
+                        // Accedemos a la pantalla PajarosActivity, que es la pantalla del programa donde va a mostrar los pajaros
+                        val intent = Intent(this, PajarosActivity::class.java).apply {
+                            putExtra("emailUsuario", binding.IntroEmail.text.toString())
                         }
+                        startActivity(intent)
+                        // Llamada al metodo patra limpiar el foco
+                        clearFocus()
                     } else {
-                        Toast.makeText(this, "Correo o contraseña incorrecta", Toast.LENGTH_SHORT).show()
+                        // sino avisamos el usuario que ocurrio un problema
+                        Toast.makeText(this, "El correo o la contraseña introducida es incorrecta", Toast.LENGTH_SHORT).show()
                     }
                 }
         } else {
-            Toast.makeText(this, "Algún campo está vacío", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Algun campo está vacio", Toast.LENGTH_SHORT).show()
         }
-
     }
 
     //Al pulsar sobre el boton añadir, se limpia
@@ -135,4 +111,16 @@ class MainActivity : AppCompatActivity() {
                 }
         }
     }
+    override fun onBackPressed() {
+
+        AlertDialog.Builder(this)
+            .setTitle("Confirmación")
+            .setMessage("¿Estás seguro de que deseas salir?")
+            .setPositiveButton("Sí") { _: DialogInterface, _: Int ->
+                finishAffinity()
+            }
+            .setNegativeButton("No", null)
+            .show()
+    }
+
 }

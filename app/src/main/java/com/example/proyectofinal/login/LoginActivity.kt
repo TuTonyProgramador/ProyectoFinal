@@ -63,7 +63,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
         } else {
-            Toast.makeText(this, "Puede ser que algun campo este vacio o sea incorrecto", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Puede ser que algun campo, este vacio o sea incorrecto", Toast.LENGTH_SHORT).show()
         }
     }
 
