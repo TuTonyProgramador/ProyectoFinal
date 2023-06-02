@@ -3,11 +3,13 @@ package com.example.proyectofinal.login
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.proyectofinal.PajarosActivity
+import com.example.proyectofinal.R
 import com.example.proyectofinal.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -16,6 +18,7 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
+    private var contraseniavisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +38,10 @@ class MainActivity : AppCompatActivity() {
         // Boton para que nos lleve a la ventana del olvido de contraseña
         binding.RecordarContrasena.setOnClickListener {
             startActivity(Intent(this, RecordarConta::class.java))
+        }
+
+        binding.eye.setOnClickListener{
+            verContrasenia()
         }
 
     }
@@ -112,15 +119,35 @@ class MainActivity : AppCompatActivity() {
         }
     }
     override fun onBackPressed() {
+        // Sobreescribe el método onBackPressed() de la Activity actual
 
-        AlertDialog.Builder(this)
-            .setTitle("Confirmación")
-            .setMessage("¿Estás seguro de que deseas salir?")
+        AlertDialog.Builder(this) // Crea un objeto AlertDialog.Builder con el contexto de la Activity actual
+            .setTitle("Salir de la APP") // Establece el título del diálogo
+            .setMessage("¿Estás seguro de que deseas salir?") // Establece el mensaje del diálogo
             .setPositiveButton("Sí") { _: DialogInterface, _: Int ->
-                finishAffinity()
+                // Configura el botón positivo del diálogo con un texto y una acción al hacer clic
+                finishAffinity() // Finaliza todas las Activities de la aplicación y cierra la aplicación
             }
-            .setNegativeButton("No", null)
-            .show()
+            .setNegativeButton("No", null) // Configura el botón negativo del diálogo con un texto y sin ninguna acción
+            .show() // Muestra el diálogo en la pantalla
     }
+
+
+    private fun verContrasenia() {
+        contraseniavisible = !contraseniavisible // Invierte el valor de la variable contraseniavisible
+
+        if (contraseniavisible) {
+            // Si la contraseña es visible
+            binding.IntroContrasena.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            // Establece el tipo de entrada de texto como contraseña visible
+            binding.eye.setImageResource(R.drawable.ver_password)
+        } else {
+            // Si la contraseña no es visible
+            binding.IntroContrasena.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            // Establece el tipo de entrada de texto como contraseña oculta
+            binding.eye.setImageResource(R.drawable.ver_password)
+        }
+    }
+
 
 }

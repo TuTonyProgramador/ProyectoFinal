@@ -48,28 +48,32 @@ class EliminarCriadores : Fragment(R.layout.fragment_eliminar_criadores) {
         if (!numeroCriador.isNullOrEmpty()) {
 
             db.collection("Criadores")
-            .whereEqualTo("NumeroCriador", numeroCriador)
+                .whereEqualTo("NumeroCriador", numeroCriador)
                 .get()
                 .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    document.reference.delete()
+                    if (documents.isEmpty) {
+                        // El criador no existe
+                        Toast.makeText(requireActivity().applicationContext, "El criador no existe", Toast.LENGTH_SHORT).show()
+                    } else {
+                        for (document in documents) {
+                            document.reference.delete()
+                        }
+
+                        Toast.makeText(requireActivity().applicationContext, "Criador eliminado correctamente", Toast.LENGTH_SHORT).show()
+
+                        clearFocus() // Limpiar foco
+
+                        // Volver a la actividad del PajarosActivity
+                        val pajarosA = Intent(activity, PajarosActivity::class.java)
+
+                        // Volver a la actividad PajarosActivity
+                        startActivity(pajarosA)
+
+                        requireActivity().finish() // Finalizar la actividad actual
+                    }
+                }.addOnFailureListener { exception ->
+                    Toast.makeText(requireActivity().applicationContext, "Error al eliminar el criador: ${exception.message}", Toast.LENGTH_SHORT).show()
                 }
-
-                Toast.makeText(requireActivity().applicationContext, "Criador eliminado correctamente", Toast.LENGTH_SHORT).show()
-
-                clearFocus() // Limpiar foco
-
-                // Volver a la actividad del PajarosActivity
-                val pajarosA = Intent(activity, PajarosActivity::class.java)
-
-                // Volver a la actividad PajarosActivity
-                startActivity(pajarosA)
-
-                requireActivity().finish() // Finalizar la actividad actual
-
-            }.addOnFailureListener { exception ->
-                Toast.makeText(requireActivity().applicationContext, "Error al eliminar el criador: ${exception.message}", Toast.LENGTH_SHORT).show()
-            }
         } else {
             Toast.makeText(requireActivity().applicationContext, "El número de criador no puede estar vacío", Toast.LENGTH_SHORT).show()
         }

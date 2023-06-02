@@ -13,82 +13,67 @@
     android:elevation="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/itemView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/itemView">
-
-        <ImageView
-            android:id="@+id/imagenLista"
-            android:layout_width="108dp"
-            android:layout_height="116dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
             android:id="@+id/tipo"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
             android:layout_marginTop="4dp"
             android:text="Tipo Canario"
+            android:layout_marginEnd="45dp"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/imagenLista"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/NumeroCriador"
             android:layout_width="236dp"
             android:layout_height="27dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="-20dp"
             android:text="Numero de Criador"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.551"
-            app:layout_constraintStart_toEndOf="@+id/imagenLista"
             app:layout_constraintTop_toBottomOf="@+id/tipo" />
+
         <TextView
             android:id="@+id/AnioNacimiento"
             android:layout_width="236dp"
             android:layout_height="27dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="-20dp"
             android:text="Año de Nacimiento"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.551"
-            app:layout_constraintStart_toEndOf="@+id/imagenLista"
             app:layout_constraintTop_toBottomOf="@+id/NumeroCriador" />
 
         <TextView
             android:id="@+id/Sexo"
             android:layout_width="236dp"
             android:layout_height="27dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="-20dp"
             android:text="Sexo"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.551"
-            app:layout_constraintStart_toEndOf="@+id/imagenLista"
             app:layout_constraintTop_toBottomOf="@+id/AnioNacimiento" />
 
         <TextView
             android:id="@+id/NumeroAnilla"
             android:layout_width="236dp"
             android:layout_height="27dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="-20dp"
             android:text="Numero de Anilla"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.551"
-            app:layout_constraintStart_toEndOf="@+id/imagenLista"
             app:layout_constraintTop_toBottomOf="@+id/Sexo" />
 
         <TextView
@@ -96,12 +81,29 @@
             android:layout_width="236dp"
             android:layout_height="27dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="-20dp"
             android:text="Descripcion"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.909"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/NumeroAnilla" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imagenLista"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="35dp"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />
+
+    </LinearLayout>
+
 </androidx.cardview.widget.CardView>

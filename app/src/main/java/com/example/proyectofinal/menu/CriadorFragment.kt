@@ -30,7 +30,6 @@ class CriadorFragment : Fragment(R.layout.fragment_criador) {
         val view = binding.root
 
         // Configuración del botón para consultar el criador
-
         binding.BConsultarCriador.setOnClickListener {
             if (!binding.NumCriador.text.isNullOrEmpty()) {
                 val numCriador = binding.NumCriador.text.toString()

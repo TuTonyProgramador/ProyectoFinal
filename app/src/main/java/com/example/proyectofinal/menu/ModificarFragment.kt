@@ -146,8 +146,8 @@ class ModificarFragment : Fragment(R.layout.fragment_modificar) {
 
 
                 // Volver a la actividad del homeFragment
-                val homeFragment = Intent(activity, PajarosActivity::class.java)
-                startActivity(homeFragment)
+                val PajarosA = Intent(activity, PajarosActivity::class.java)
+                startActivity(PajarosA)
             }
         }
 
