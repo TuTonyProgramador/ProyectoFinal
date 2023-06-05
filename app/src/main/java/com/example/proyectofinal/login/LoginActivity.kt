@@ -53,6 +53,8 @@ class LoginActivity : AppCompatActivity() {
                                 )
                             )
 
+                        Toast.makeText(this, "Nuevo usuario creado", Toast.LENGTH_SHORT).show()
+
                         // Accedemos a la pantalla InicioActivity, para dar la bienvenida al usuario
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
