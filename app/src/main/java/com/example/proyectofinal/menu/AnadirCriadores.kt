@@ -13,8 +13,6 @@ import androidx.activity.OnBackPressedCallback
 import com.example.proyectofinal.PajarosActivity
 import com.example.proyectofinal.R
 import com.example.proyectofinal.databinding.FragmentAnadirCriadoresBinding
-import com.example.proyectofinal.databinding.FragmentSoporteBinding
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 
@@ -69,10 +67,10 @@ class AnadirCriadores : Fragment(R.layout.fragment_anadir_criadores) {
                 .addOnFailureListener {
                     Log.d(ContentValues.TAG, "Error en la interseccion del nuevo registro")
                 }
-            // Volver a la actividad del homeFragment
-            val homeFragment = Intent(activity, PajarosActivity::class.java)
+            // Volver a la actividad del PajarosA
+            val PajarosA = Intent(activity, PajarosActivity::class.java)
             // Inicia la actividad de PajarosActivity y pasa el correo como parámetro
-            startActivity(homeFragment)
+            startActivity(PajarosA)
 
             // Finaliza la actividad actual
             requireActivity().finish()

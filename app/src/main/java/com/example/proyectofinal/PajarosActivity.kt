@@ -1,7 +1,6 @@
 package com.example.proyectofinal
 
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -11,7 +10,6 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.GravityCompat
 import com.example.proyectofinal.login.MainActivity
 import com.example.proyectofinal.databinding.ActivityPajarosBinding
@@ -144,22 +142,25 @@ class PajarosActivity : AppCompatActivity() {
     }
 
     fun obtenerPermisos () {
-        val auth = FirebaseAuth.getInstance()
-        val correo = auth.currentUser?.email.toString()
-        var db = FirebaseFirestore.getInstance()
+        val auth = FirebaseAuth.getInstance() // Obtiene una instancia del servicio de autenticación
+        val correo = auth.currentUser?.email.toString() // Obtiene el correo electrónico del usuario autenticado
+        var db = FirebaseFirestore.getInstance() // Obtiene una instancia de la base de datos Firestore
 
-        db.collection("Usuarios").document(correo).get()
+        db.collection("Usuarios").document(correo).get() // Obtiene el documento correspondiente al correo del usuario
             .addOnSuccessListener { documentSnapshot ->
                 if (documentSnapshot.exists()) {
-                    val privilegios = documentSnapshot.getString("Rol")
+                    val privilegios = documentSnapshot.getString("Rol") // Obtiene el valor del campo "Rol" del documento
 
                     if (privilegios == "Usuario") {
-                        // Menu
+                        // Si el usuario tiene el rol "Usuario"
+                        // Oculta los elementos del menú correspondientes a añadir y eliminar criadores
                         binding.navView.menu.findItem(R.id.anadir_criador).isVisible = false
                         binding.navView.menu.findItem(R.id.eliminar_criador).isVisible = false
 
                     }
                     if (privilegios == "Admin") {
+                        // Si el usuario tiene el rol "Admin"
+                        // Muestra los elementos del menú correspondientes a añadir y eliminar criadores
                         binding.navView.menu.findItem(R.id.anadir_criador).isVisible = true
                         binding.navView.menu.findItem(R.id.eliminar_criador).isVisible = true
                     }
@@ -173,15 +174,18 @@ class PajarosActivity : AppCompatActivity() {
         var apellidos: String
         var userName: String
 
-        val auth = FirebaseAuth.getInstance()
-        val db = FirebaseFirestore.getInstance()
+        val auth = FirebaseAuth.getInstance() // Obtiene una instancia del servicio de autenticación
+        val db = FirebaseFirestore.getInstance() // Obtiene una instancia de la base de datos Firestore
 
         auth.currentUser?.let {
+            // Verifica si hay un usuario autenticado
             db.collection("Usuarios")
                 .get()
                 .addOnSuccessListener { documents ->
+                    // Obtiene todos los documentos de la colección "Usuarios"
                     for (usuario in documents) {
                         if (usuario.id == auth.currentUser?.email){
+                            // Comprueba si el ID del documento coincide con el correo electrónico del usuario autenticado
                             nombre = usuario.getString("Nombre") ?: ""
                             apellidos = usuario.getString("Apellidos") ?: ""
                             userName = nombre + " " + apellidos

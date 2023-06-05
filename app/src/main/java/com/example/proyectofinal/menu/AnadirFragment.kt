@@ -14,8 +14,6 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat.finishAffinity
-import androidx.core.graphics.createBitmap
 import androidx.fragment.app.Fragment
 import com.example.proyectofinal.PajarosActivity
 import com.example.proyectofinal.R

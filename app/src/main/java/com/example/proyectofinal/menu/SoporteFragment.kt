@@ -11,7 +11,6 @@ import androidx.activity.OnBackPressedCallback
 import com.example.proyectofinal.PajarosActivity
 import com.example.proyectofinal.R
 import com.example.proyectofinal.databinding.FragmentSoporteBinding
-import com.google.firebase.auth.FirebaseAuth
 
 
 class SoporteFragment : Fragment(R.layout.fragment_soporte) {

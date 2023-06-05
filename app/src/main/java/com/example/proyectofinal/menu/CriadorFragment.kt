@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import com.example.proyectofinal.PajarosActivity
 import com.example.proyectofinal.R
 import com.example.proyectofinal.databinding.FragmentCriadorBinding
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class CriadorFragment : Fragment(R.layout.fragment_criador) {

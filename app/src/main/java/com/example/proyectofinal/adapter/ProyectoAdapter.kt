@@ -16,7 +16,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 
 
-
 class ProyectoAdapter(private var consultarDatosAves:ArrayList<DatosAve>): RecyclerView.Adapter<ProyectoViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProyectoViewHolder {
@@ -43,17 +42,13 @@ class ProyectoAdapter(private var consultarDatosAves:ArrayList<DatosAve>): Recyc
 
         // Configura un listener para el evento "click" en el item de la lista
         holder.itemView.setOnClickListener {
-            // Define el título y el mensaje del diálogo de confirmación para borrar el pájaro
-            val title = "Confirmacion"
-            val content = "¿Desea borrar el pajaro registrada?"
-
             // Obtiene el ID del pájaro correspondiente al objeto DatosAve actual
             var id = item.id
 
-            // Crea el diálogo de confirmación para borrar el pájaro
+            // Crea el diálogo de confirmación para borrar el pájaro y se define el titulo y el mensaje del dialogo
             val builder = AlertDialog.Builder(holder.itemView.context)
-            builder.setTitle(title)
-            builder.setMessage(content)
+            builder.setTitle("Confirmacion")
+            builder.setMessage("¿Desea borrar el pajaro registrada?")
 
             // Configura el botón "Eliminar" del diálogo para borrar el pájaro de la base de datos y el almacenamiento de Firebase, y actualizar la lista
             builder.setPositiveButton("Eliminar") { dialog, which ->
@@ -100,7 +95,6 @@ class ProyectoAdapter(private var consultarDatosAves:ArrayList<DatosAve>): Recyc
                 holder.imagen.setImageBitmap(foto)
                 Log.i("ImagenLista", "Imagen cargada")
             }.addOnFailureListener {
-                // Handle any errors
                 Log.i("ImagenLista2", "Error al cargar la imagen")
             }
         }
