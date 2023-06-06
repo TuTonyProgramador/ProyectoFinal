@@ -131,6 +131,7 @@ class CalendarioFragment : Fragment(R.layout.fragment_calendario) {
         // Crear una referencia a la colección "Eventos"
         db.collection("Eventos")
             .whereEqualTo("fecha", fecha)
+            .whereEqualTo("Usuario", correo)
             .get()
             .addOnSuccessListener { documents ->
                 // Limpiar la lista de notas antes de agregar las nuevas
