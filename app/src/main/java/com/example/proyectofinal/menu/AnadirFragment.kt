@@ -80,7 +80,7 @@ class AnadirFragment : Fragment(R.layout.fragment_anadir) {
         // Botón para registrar una nueva ave
         binding.BRegistrarAve.setOnClickListener {
             // Comprobación de que los campos no estén vacíos
-            if (!(binding.tipoAve.text.isNullOrEmpty() && binding.numeroC.text.isNullOrEmpty() && binding.anioNacimiento.text.isNullOrEmpty() && binding.sexoA.text.isNullOrEmpty() && binding.numA.text.isNullOrEmpty() && binding.descri.text.isNullOrEmpty())) {
+            if (!(binding.numeroC.text.isNullOrEmpty() || binding.anioNacimiento.text.isNullOrEmpty() || binding.numA.text.isNullOrEmpty())) {
                 binding.BRegistrarAve.isEnabled = false
                 Handler(Looper.getMainLooper()).postDelayed({
                     if (contador == 0) {

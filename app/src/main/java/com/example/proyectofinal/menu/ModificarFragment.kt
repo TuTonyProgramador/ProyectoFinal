@@ -57,7 +57,7 @@ class ModificarFragment : Fragment(R.layout.fragment_modificar) {
             val currentUserEmail = FirebaseAuth.getInstance().currentUser?.email
 
             // Verificar que no haya campos vacíos en la consulta
-            if (!(binding.MAnioN.text.isNullOrEmpty() && binding.MNumAni.text.isNullOrEmpty() && binding.MNumC.text.isNullOrEmpty() && binding.MSexo.text.isNullOrEmpty() && binding.MTipoAve.text.isNullOrEmpty())) {
+            if (!(binding.MAnioN.text.isNullOrEmpty() || binding.MNumAni.text.isNullOrEmpty() || binding.MNumC.text.isNullOrEmpty())) {
                 // Realizar la consulta a Firestore para buscar el documento correspondiente
                 db.collection("Canarios")
                     .whereEqualTo("Numero_criador", binding.MNumC.text.toString())

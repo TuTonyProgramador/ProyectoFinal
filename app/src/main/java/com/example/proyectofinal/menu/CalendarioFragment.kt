@@ -82,32 +82,36 @@ class CalendarioFragment : Fragment(R.layout.fragment_calendario) {
     // Método para mostrar el diálogo de agregar nota
     private fun showNoteDialog(context: Context, year: Int, month: Int, dayOfMonth: Int) {
         val builder = AlertDialog.Builder(context)
-        builder.setTitle("Añadir nota $dayOfMonth/${month+1}/$year")
+        builder.setTitle("Añadir nota $dayOfMonth/${month + 1}/$year")
         val input = EditText(context)
-
         builder.setView(input)
 
         // Acciones del botón "Guardar" del diálogo
         builder.setPositiveButton("Guardar") { dialog, which ->
-            val nota = input.text.toString().toLowerCase()
-            // Obtener una referencia a la colección "eventos"
-            if(nota.length > 33){
-                Toast.makeText(requireContext(), "Has pasado el limite de caracteres permitidos", Toast.LENGTH_SHORT).show()
-            }
-            else{
-                db.collection("Eventos").document(nota.hashCode().toString())
-                    .set(
-                        mapOf(
-                            "Nota" to nota,
-                            "fecha" to fecha,
-                            "Usuario" to correo,
-                            "id" to nota.hashCode().toString()
+            val nota = input.text.toString().toLowerCase().trim() // Obtener la nota y eliminar espacios en blanco al inicio y al final
+
+            if (nota.isNotEmpty()) {
+                if (nota.length > 33) {
+                    Toast.makeText(requireContext(), "Has superado el límite de caracteres permitidos", Toast.LENGTH_SHORT).show()
+                } else {
+                    db.collection("Eventos").document(nota.hashCode().toString())
+                        .set(
+                            mapOf(
+                                "Nota" to nota,
+                                "fecha" to fecha,
+                                "Usuario" to correo,
+                                "id" to nota.hashCode().toString()
+                            )
                         )
-                    ).addOnSuccessListener {
-                        Toast.makeText(context, "Nota guardada", Toast.LENGTH_SHORT).show()
-                    }.addOnFailureListener {
-                        Toast.makeText(context, "Error al guardar nota", Toast.LENGTH_SHORT).show()
-                    }
+                        .addOnSuccessListener {
+                            Toast.makeText(context, "Nota guardada", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(context, "Error al guardar nota", Toast.LENGTH_SHORT).show()
+                        }
+                }
+            } else {
+                Toast.makeText(context, "La nota está vacía", Toast.LENGTH_SHORT).show()
             }
         }
         // Acciones del botón "Cancelar" del diálogo
@@ -121,6 +125,7 @@ class CalendarioFragment : Fragment(R.layout.fragment_calendario) {
 
         builder.show()
     }
+
 
 
     // Método para mostrar las notas de una fecha específica
@@ -196,9 +201,6 @@ class CalendarioFragment : Fragment(R.layout.fragment_calendario) {
                 Toast.makeText(context, "Error al obtener notas", Toast.LENGTH_SHORT).show()
             }
     }
-
-
-
 
     // Método para mostrar el diálogo de confirmación de eliminación de nota
     private fun showDeleteConfirmationDialog(context: Context, id: String) {

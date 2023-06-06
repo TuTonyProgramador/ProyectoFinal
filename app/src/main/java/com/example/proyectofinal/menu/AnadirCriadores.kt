@@ -46,38 +46,48 @@ class AnadirCriadores : Fragment(R.layout.fragment_anadir_criadores) {
     }
 
     fun RegistrarCriadores() {
-        if (!(binding.numeroCriador.text.isNullOrEmpty())) {
+        val numeroCriador = binding.numeroCriador.text.toString()
+
+        if (numeroCriador.isNotEmpty()) {
+            // Realizar la consulta para comprobar si el criador ya existe
             db.collection("Criadores")
-                // Define los datos del ave como un mapa de valores
-                .add(
-                    mapOf(
-                        "NumeroCriador" to binding.numeroCriador.text.toString(),
-                        "Nombre" to binding.nCriador.text.toString(),
-                        "Apellidos" to binding.aCriador.text.toString(),
-                        "Localidad" to binding.lCriador.text.toString(),
-                        "Asociacion" to binding.asCriador.text.toString(),
-                        "Federacion" to binding.fCriador.text.toString(),
-                    )
-                )
-                // Si se añaden los datos correctamente, muestra un mensaje en el log
-                .addOnSuccessListener { documento ->
-                    Log.d(ContentValues.TAG, "Nuevo Criador añadido con id: ${binding.numeroCriador.hashCode()}")
-                }
-                // Si se produce un error al añadir los datos, muestra un mensaje en el log
-                .addOnFailureListener {
-                    Log.d(ContentValues.TAG, "Error en la interseccion del nuevo registro")
-                }
-            // Volver a la actividad del PajarosA
-            val PajarosA = Intent(activity, PajarosActivity::class.java)
-            // Inicia la actividad de PajarosActivity y pasa el correo como parámetro
-            startActivity(PajarosA)
+                .whereEqualTo("NumeroCriador", numeroCriador)
+                .get()
+                .addOnSuccessListener { querySnapshot ->
+                    if (querySnapshot.isEmpty) {
+                        // El criador no existe, se puede agregar a la base de datos
+                        val nuevoCriador = mapOf(
+                            "NumeroCriador" to numeroCriador,
+                            "Nombre" to binding.nCriador.text.toString(),
+                            "Apellidos" to binding.aCriador.text.toString(),
+                            "Localidad" to binding.lCriador.text.toString(),
+                            "Asociacion" to binding.asCriador.text.toString(),
+                            "Federacion" to binding.fCriador.text.toString()
+                        )
 
-            // Finaliza la actividad actual
-            requireActivity().finish()
-
+                        db.collection("Criadores")
+                            .add(nuevoCriador)
+                            .addOnSuccessListener { documento ->
+                                Log.d(ContentValues.TAG, "Nuevo Criador añadido con id: ${documento.id}")
+                                // Volver a la actividad del PajarosA
+                                val PajarosA = Intent(activity, PajarosActivity::class.java)
+                                // Inicia la actividad de PajarosActivity y pasa el correo como parámetro
+                                startActivity(PajarosA)
+                                // Finaliza la actividad actual
+                                requireActivity().finish()
+                            }
+                            .addOnFailureListener {
+                                Log.d(ContentValues.TAG, "Error en la interseccion del nuevo registro")
+                            }
+                    } else {
+                        // El criador ya existe en la base de datos
+                        Toast.makeText(requireActivity().applicationContext, "Este criador ya esta registrado", Toast.LENGTH_SHORT).show()
+                    }
+                }
         } else {
-            // Si hay campos vacíos en la consulta, mostrar un mensaje de error
-            Toast.makeText(requireActivity().applicationContext, "El numero de criador no puede estar vacio", Toast.LENGTH_SHORT).show()
+            // Si el número de criador está vacío, mostrar un mensaje de error
+            Toast.makeText(requireActivity().applicationContext, "El número de criador no puede estar vacío", Toast.LENGTH_SHORT).show()
         }
     }
+
 }
